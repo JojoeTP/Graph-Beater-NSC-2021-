@@ -6,18 +6,76 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 4f;
     Vector3 diraction;
-
     public Transform camFollow;
 
+    public enum GameStage {LOBBY,GAME1,GAME2,GAME3,GAME4,GAME5,FINALGAME};
+    public GameStage CurrentStage = GameStage.LOBBY;
+
+    private void Awake() {
+        CurrentStage = GameStage.LOBBY;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        switch (CurrentStage){
+            case GameStage.LOBBY :
+            Lobby();
+            break;
+            case GameStage.GAME1 :
+            Game1();
+            break;
+            case GameStage.GAME2 :
+            Game2();
+            break;
+            case GameStage.GAME3 :
+            Game3();
+            break;
+            case GameStage.GAME4 :
+            Game4();
+            break;
+            case GameStage.GAME5 :
+            Game5();
+            break;
+            case GameStage.FINALGAME :
+            FinalGame();
+            break;
+            
+            
+        }
     }
 
-    //Player movement
-    void Move(){
+    
+
+    void Lobby(){
+        Move1();
+    }
+
+    void Game1(){
+        Move1();
+        Shoot();
+    }
+
+    void Game2(){
+
+    }
+    void Game3(){
+
+    }
+
+    void Game4(){
+
+    }
+    void Game5(){
+
+    }
+
+    void FinalGame(){
+
+    }
+
+    //Player move 1
+    void Move1(){
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -30,40 +88,9 @@ public class PlayerController : MonoBehaviour
             camFollow.position = transform.position;
         }
     }
+
+    //Shooting for game1
+    void Shoot(){
+
+    }
 }
-
-/*
-public float moveSpeed = 4f;
-    public Transform cam;
-    Vector3 diraction;
-    CharacterController characterController;
-
-    public float trunSmoothTime = 0.1f;
-    float turnSmoothVelocity;
-
-    private void Start() {
-        characterController = GetComponent<CharacterController>();
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Move();
-    }
-
-    //Player movement
-    void Move(){
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        diraction = new Vector3(horizontal,0,vertical).normalized;
-
-        if(diraction.magnitude >= 0.1f){
-            // float targetAugle = Mathf.Atan2(diraction.x,diraction.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y,targetAugle, ref turnSmoothVelocity, trunSmoothTime);
-            // transform.rotation = Quaternion.Euler(0f,angle,0f);
-
-            // Vector3 moveDir = Quaternion.Euler(0f,targetAugle,0f) * Vector3.forward;
-            characterController.Move(diraction * moveSpeed * Time.deltaTime);
-        }
-*/
