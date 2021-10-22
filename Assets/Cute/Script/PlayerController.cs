@@ -40,8 +40,6 @@ public class PlayerController : MonoBehaviour
             case GameStage.FINALGAME :
             FinalGame();
             break;
-            
-            
         }
     }
 
@@ -91,6 +89,8 @@ public class PlayerController : MonoBehaviour
 
     //Shooting for game1
     void Shoot(){
-
+        if(Input.GetKeyDown(KeyCode.Space)){
+            Debug.Log("SHOOT!!");
+        }
     }
 }
