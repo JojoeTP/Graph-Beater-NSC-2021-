@@ -18,6 +18,8 @@ public class BulletMove : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("TargetGame1")){
             //Show question
+            Debug.Log(1);
+            other.GetComponent<Target>().HideTarget();
         }
 
         Destroy(this.gameObject);
