@@ -25,20 +25,24 @@ public class Target : MonoBehaviour
     }
 
     //show canvas
-    void ShowBoarder(){
-
+    void AnswerQuestion(){
+        game1Manager.ShowCanvasAnswer(question);
     }
 
     IEnumerator ShowTarget(){
         
         yield return new WaitForSeconds(2f);
         game1Manager.AssignQuestionToTarget(this);
-        this.GetComponent<Collider>().enabled = true;
-        StartCoroutine(IEShowTarget());
+        if(question > 0){
+            this.GetComponent<Collider>().enabled = true;
+            StartCoroutine(IEShowTarget());
+        }
+        
 
     }
 
     public void HideTarget(){
+        AnswerQuestion();
         StartCoroutine(IEHideTarget());
     }
     

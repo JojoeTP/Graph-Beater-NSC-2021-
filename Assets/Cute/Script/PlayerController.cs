@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameStage {LOBBY,GAME1,GAME2,GAME3,GAME4,GAME5,FINALGAME,ANSWERQUES};
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 4f;
     Vector3 diraction;
     public Transform camFollow;
-
-    public enum GameStage {LOBBY,GAME1,GAME2,GAME3,GAME4,GAME5,FINALGAME};
     public GameStage CurrentStage = GameStage.LOBBY;
     public GameObject bulletPrefab;
     public Transform gunBarrel;
+
+    public List<GameObject> cam = new List<GameObject>();
 
     private void Awake() {
         CurrentStage = GameStage.LOBBY;
@@ -23,24 +24,34 @@ public class PlayerController : MonoBehaviour
         switch (CurrentStage){
             case GameStage.LOBBY :
             Lobby();
+            ChangeCamera(0);
             break;
             case GameStage.GAME1 :
             Game1();
+            ChangeCamera(1);
             break;
             case GameStage.GAME2 :
             Game2();
+            ChangeCamera(2);
             break;
             case GameStage.GAME3 :
             Game3();
+            ChangeCamera(3);
             break;
             case GameStage.GAME4 :
             Game4();
+            ChangeCamera(4);
             break;
             case GameStage.GAME5 :
             Game5();
+            ChangeCamera(5);
             break;
             case GameStage.FINALGAME :
             FinalGame();
+            ChangeCamera(6);
+            break;
+            case GameStage.ANSWERQUES :
+            AnswerQues();
             break;
         }
     }
@@ -72,6 +83,9 @@ public class PlayerController : MonoBehaviour
 
     void FinalGame(){
 
+    }
+    void AnswerQues(){
+        //don't MOVE
     }
 
     //Player move 1
@@ -106,5 +120,13 @@ public class PlayerController : MonoBehaviour
             Instantiate(bulletPrefab,gunBarrel.position,Quaternion.Euler(Vector3.zero));
             Debug.Log("SHOOT!!");
         }
+    }
+
+    void ChangeCamera(int _cam){
+        foreach(GameObject n in cam){
+            n.SetActive(false);
+        }
+        
+        cam[_cam].SetActive(true);
     }
 }
