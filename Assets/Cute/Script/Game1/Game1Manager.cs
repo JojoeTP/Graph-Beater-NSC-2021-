@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Game1Manager : MonoBehaviour
 {
-    public bool isGameStart = false;
+    public bool isGameStarted = false;
     public bool win = false;
     public Transform outSidePos;
     public DoorScript doorGame1;
@@ -136,7 +136,7 @@ public class Game1Manager : MonoBehaviour
 
         if(inCorrectAnswer == maxInCorrectAnswer){
             Debug.Log("GameOver");
-            isGameStart = false;
+            isGameStarted = false;
 
             EndGame();
             FindObjectOfType<InstantiateGame1Manager>().GetComponent<InstantiateGame1Manager>().OnReset();
@@ -164,9 +164,9 @@ public class Game1Manager : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other) {
-        if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStart){
+        if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStarted){
             StartGame();
-            isGameStart = true;
+            isGameStarted = true;
         }
     }
 }
