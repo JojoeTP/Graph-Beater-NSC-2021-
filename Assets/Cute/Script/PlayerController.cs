@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     }
     void Game3(){
-
+        Move2();
     }
 
     void Game4(){
