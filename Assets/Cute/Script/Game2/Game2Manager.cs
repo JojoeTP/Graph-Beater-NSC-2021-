@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum MathOparation{
+    PLUS,MINUS,Multiply,Divide
+}
+
 public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 {
     [Header("Choice")]
     [SerializeField]
-    private DictionaryScriptableObject dictionaryDataNumber;
+    private DictionaryScriptableObjectS2I dictionaryDataNumber;
 
     [SerializeField]
     private List<string> numKeys = new List<string>();
@@ -20,30 +24,40 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 
     [Header("MathOparation")]
     [SerializeField]
-    private DictionaryScriptableObject dictionaryDataMathOparation;
+    private DictionaryScriptableObjectS2S dictionaryDataMathOparation;
 
     [SerializeField]
     private List<string> mathOPKeys = new List<string>();
     [SerializeField]
-    private List<int> mathOPValues = new List<int>();
+    private List<MathOparation> mathOPValues = new List<MathOparation>();
 
-    private Dictionary<string, int> mathOPDictionary = new Dictionary<string, int>();
+    private Dictionary<string, MathOparation> mathOPDictionary = new Dictionary<string, MathOparation>();
     public bool modifymathOPValues;
 
-
+    [Header("InGame")]
     public bool isGameStarted = false;
+    public int selectionChoice = 1;
+
+
     [Header("Text")]
-    public TextMeshProUGUI question1;
-    public TextMeshProUGUI question2;
-    public TextMeshProUGUI answer;
-    [Header("LeftSide")]
-    public int x_L = 0;
-    public int y_L = 0;
-    public int a_L = 0;
-    [Header("RightSide")]
-    public int x_R = 0;
-    public int y_R = 0;
-    public int a_R = 0;
+    public TextMeshProUGUI question1Text;
+    public TextMeshProUGUI question2Text;
+    public TextMeshProUGUI answerText;
+    [Header("[0] = x,[1] = y,[2] = a")]
+    public string Readme;
+    [Header("Question1")]
+    public List<int> leftSideQuestion1 = new List<int>();
+    public List<int> rightSideQuestion1 = new List<int>();
+    public string question1;
+    [Header("Question2")]
+    public List<int> leftSideQuestion2 = new List<int>();
+    public List<int> rightSideQuestion2 = new List<int>();
+    public string question2;
+    [Header("Answer")]
+    public List<int> leftSideAnswer = new List<int>();
+    public List<int> rightSideAnswer = new List<int>();
+    public string answer;
+
     private void Awake()
     {
         //Dictionary
@@ -59,6 +73,27 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         }
     }
 
+    private void Start() {
+        // leftSideAnswer = leftSideQuestion1;
+        // rightSideAnswer = rightSideQuestion1;
+
+        // leftSideQuestion1 = leftSideAnswer;
+        // rightSideQuestion1 = rightSideAnswer;
+
+        for(int i = 0; i < leftSideQuestion1.Count; i++){
+            leftSideAnswer[i] = leftSideQuestion1[i];
+            rightSideAnswer[i] = rightSideQuestion1[i];
+        }
+    }
+
+    private void Update() {
+        question1 = ConvertToText(leftSideQuestion1,rightSideQuestion1);
+        question2 = ConvertToText(leftSideQuestion2,rightSideQuestion2);
+        answer = ConvertToText(leftSideAnswer,rightSideAnswer);
+
+        setText();
+    }
+
     private void OnTriggerStay(Collider other) {
         if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStarted){
             //Play game2
@@ -66,11 +101,118 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         }
     }
 
-    public void ConvertToText(){
-        
+    public string ConvertToText(List<int> leftList,List<int> rightList){
+        string equation = "";
+
+        if(TurnIntToStringList(leftList) != "" && TurnIntToStringList(rightList) != ""){
+            equation = TurnIntToStringList(leftList) + "=" + TurnIntToStringList(rightList);
+        }else if(TurnIntToStringList(leftList) == "" && TurnIntToStringList(rightList) == ""){
+            equation = "";
+        }else if(TurnIntToStringList(leftList) == "" && TurnIntToStringList(rightList) != ""){
+            equation = TurnIntToStringList(rightList);
+        }else if(TurnIntToStringList(leftList) != "" && TurnIntToStringList(rightList) == ""){
+            equation = TurnIntToStringList(leftList);
+        }
+
+        return equation;
     }
 
+    public string TurnIntToStringList(List<int> _list){
+        string x = "",y = "",a = "";
+        string result = "";
+        if(_list[0] == 0){
+            x = "";
+        }else if(_list[0] != 0){
+            x = _list[0].ToString() + "x";
+        }
 
+        if(_list[1] == 0){
+            y = "";
+        }else if(_list[1] > 0){
+            if(_list[0] == 0){
+                y = _list[1].ToString() + "y";
+            }else if(_list[0] != 0){
+                y = "+" + _list[1].ToString() + "y";
+            }
+        }else if(_list[1] <= 0){
+            y = _list[1].ToString() + "y";
+        }
+
+        if(_list[2] == 0){
+            a = "";
+        }else if(_list[2] > 0){
+            if(_list[0] == 0 && _list[1] == 0){
+                a = _list[2].ToString();
+            }else if(_list[0] != 0 || _list[1] != 0){
+                a = "+" + _list[2].ToString();
+            }
+        }else if(_list[2] <= 0){
+            a = _list[2].ToString();
+        }
+
+        result = x+y+a;
+
+        return result;
+    }
+
+    void setText(){
+        question1Text.text = question1;
+        question2Text.text = question2;
+        answerText.text = answer;
+    }
+
+    public void EnterCalculation(){
+        //switch check mathOP
+        switch(mathOPDictionary[selectionChoice.ToString()]){
+            case MathOparation.PLUS:
+                Plus();
+                break;
+            case MathOparation.MINUS:
+                Minus();
+                break;
+            case MathOparation.Multiply:
+                Multiply();
+                break;
+            case MathOparation.Divide:
+                Divide();
+                break;
+        }
+        
+    }
+    public void ResetCalculation(){
+        for(int i = 0; i < leftSideQuestion1.Count; i++){
+            leftSideAnswer[i] = leftSideQuestion1[i];
+            rightSideAnswer[i] = rightSideQuestion1[i];
+        }
+    }
+
+    void Plus(){
+        Debug.Log("Plus");
+    }
+    void Minus(){
+        Debug.Log("Minus");
+    }
+    void Multiply(){
+        Debug.Log("Multiply");
+    }
+    void Divide(){
+        Debug.Log("Divide");
+    }
+
+    //Select Choice
+    public void NextChoice(){
+        selectionChoice += 1;
+        if(selectionChoice > numKeys.Count){
+            selectionChoice = 1;
+        }
+    }
+
+    public void PreviousChoice(){
+        selectionChoice -= 1;
+        if(selectionChoice == 0){
+            selectionChoice = numKeys.Count;
+        }
+    }
 
 
 
@@ -134,13 +276,13 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         modifyNumValues = false;
 
         Debug.Log("DESERIALIZATION");
-        mathOPDictionary = new Dictionary<string, int>();
+        mathOPDictionary = new Dictionary<string, MathOparation>();
         dictionaryDataNumber.Keys.Clear();
         dictionaryDataNumber.Values.Clear();
         for (int i = 0; i < Mathf.Min(mathOPKeys.Count, mathOPValues.Count); i++)
         {
-            dictionaryDataNumber.Keys.Add(mathOPKeys[i]);
-            dictionaryDataNumber.Values.Add(mathOPValues[i]);
+            dictionaryDataMathOparation.Keys.Add(mathOPKeys[i]);
+            dictionaryDataMathOparation.Values.Add(mathOPValues[i]);
             mathOPDictionary.Add(mathOPKeys[i], mathOPValues[i]);
         }
         modifymathOPValues = false;

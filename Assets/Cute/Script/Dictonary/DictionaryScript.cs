@@ -5,7 +5,7 @@ using UnityEngine;
 public class DictionaryScript : MonoBehaviour, ISerializationCallbackReceiver
 {
     [SerializeField]
-    private DictionaryScriptableObject dictionaryData;
+    private DictionaryScriptableObjectS2I dictionaryDataS2I;
 
     [SerializeField]
     private List<string> keys = new List<string>();
@@ -18,9 +18,9 @@ public class DictionaryScript : MonoBehaviour, ISerializationCallbackReceiver
 
     private void Awake()
     {
-        for (int i = 0; i < Mathf.Min(dictionaryData.Keys.Count, dictionaryData.Values.Count); i++)
+        for (int i = 0; i < Mathf.Min(dictionaryDataS2I.Keys.Count, dictionaryDataS2I.Values.Count); i++)
         {
-            myDictionary.Add(dictionaryData.Keys[i], dictionaryData.Values[i]);
+            myDictionary.Add(dictionaryDataS2I.Keys[i], dictionaryDataS2I.Values[i]);
         }
     }
 
@@ -30,10 +30,10 @@ public class DictionaryScript : MonoBehaviour, ISerializationCallbackReceiver
         {
             keys.Clear();
             values.Clear();
-            for (int i = 0; i < Mathf.Min(dictionaryData.Keys.Count, dictionaryData.Values.Count); i++)
+            for (int i = 0; i < Mathf.Min(dictionaryDataS2I.Keys.Count, dictionaryDataS2I.Values.Count); i++)
             {
-                keys.Add(dictionaryData.Keys[i]);
-                values.Add(dictionaryData.Values[i]);
+                keys.Add(dictionaryDataS2I.Keys[i]);
+                values.Add(dictionaryDataS2I.Values[i]);
             }
         }
     }
@@ -47,12 +47,12 @@ public class DictionaryScript : MonoBehaviour, ISerializationCallbackReceiver
     {
         Debug.Log("DESERIALIZATION");
         myDictionary = new Dictionary<string, int>();
-        dictionaryData.Keys.Clear();
-        dictionaryData.Values.Clear();
+        dictionaryDataS2I.Keys.Clear();
+        dictionaryDataS2I.Values.Clear();
         for (int i = 0; i < Mathf.Min(keys.Count, values.Count); i++)
         {
-            dictionaryData.Keys.Add(keys[i]);
-            dictionaryData.Values.Add(values[i]);
+            dictionaryDataS2I.Keys.Add(keys[i]);
+            dictionaryDataS2I.Values.Add(values[i]);
             myDictionary.Add(keys[i], values[i]);
         }
         modifyValues = false;

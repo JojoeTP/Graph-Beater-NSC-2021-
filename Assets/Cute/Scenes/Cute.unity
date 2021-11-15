@@ -796,24 +796,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3078dd3633394dc4e910f0ff80d19085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dictionaryDataNumber: {fileID: 11400000, guid: a6b218a15d7eaf34394e31c0acb8638e, type: 2}
-  numKeys: []
-  numValues: 
+  dictionaryDataNumber: {fileID: 11400000, guid: 7b30eb92612469641a6602ea5c4353c1, type: 2}
+  numKeys:
+  - 1
+  - 2
+  - 3
+  numValues: 040000000500000006000000
   modifyNumValues: 0
-  dictionaryDataMathOparation: {fileID: 11400000, guid: 761436a2d750485469889025813ffb4c, type: 2}
-  mathOPKeys: []
-  mathOPValues: 
+  dictionaryDataMathOparation: {fileID: 11400000, guid: 017c02bbc335a9d4c8471c3269547c72, type: 2}
+  mathOPKeys:
+  - 1
+  - 2
+  - 3
+  mathOPValues: 000000000100000002000000
   modifymathOPValues: 0
   isGameStarted: 0
-  question1: {fileID: 1386108462}
-  question2: {fileID: 1162074615}
-  answer: {fileID: 607140949}
-  x_L: 0
-  y_L: 0
-  a_L: 0
-  x_R: 0
-  y_R: 0
-  a_R: 0
+  selectionChoice: 1
+  question1Text: {fileID: 1386108462}
+  question2Text: {fileID: 1162074615}
+  answerText: {fileID: 607140949}
+  Readme: 
+  leftSideQuestion1: 010000000200000003000000
+  rightSideQuestion1: 020000000100000007000000
+  question1: "\u0E15\u0E31\u0E49\u0E07\u0E2A\u0E21\u0E01\u0E32\u0E23\u0E17\u0E35\u0E48\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E41\u0E01\u0E49"
+  leftSideQuestion2: 000000000200000000000000
+  rightSideQuestion2: 010000000000000004000000
+  question2: "\u0E2A\u0E21\u0E01\u0E32\u0E23\u0E17\u0E35\u0E48\u0E41\u0E01\u0E49\u0E40\u0E40\u0E25\u0E49\u0E27"
+  leftSideAnswer: 000000000000000000000000
+  rightSideAnswer: 000000000000000000000000
+  answer: "\u0E04\u0E33\u0E15\u0E2D\u0E1A"
 --- !u!1 &657796069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1226,10 @@ PrefabInstance:
     - target: {fileID: 2202741601857653389, guid: 22cf0298c1f121042a9350fc080dcf9a, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202741601857653389, guid: 22cf0298c1f121042a9350fc080dcf9a, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22cf0298c1f121042a9350fc080dcf9a, type: 3}
@@ -1786,7 +1801,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1104732155}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 655960783}
+        m_TargetAssemblyTypeName: Game2Manager, Assembly-CSharp
+        m_MethodName: ResetCalculation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1136975078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2222,7 +2249,7 @@ GameObject:
   - component: {fileID: 1251408531}
   - component: {fileID: 1251408533}
   m_Layer: 5
-  m_Name: Previous
+  m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2328,7 +2355,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1251408531}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 655960783}
+        m_TargetAssemblyTypeName: Game2Manager, Assembly-CSharp
+        m_MethodName: NextChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1278984810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2381,7 @@ GameObject:
   - component: {fileID: 1278984812}
   - component: {fileID: 1278984814}
   m_Layer: 5
-  m_Name: Next
+  m_Name: Previous
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2448,7 +2487,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1278984812}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 655960783}
+        m_TargetAssemblyTypeName: Game2Manager, Assembly-CSharp
+        m_MethodName: PreviousChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1338757857
 GameObject:
   m_ObjectHideFlags: 3
@@ -2532,7 +2583,7 @@ GameObject:
   - component: {fileID: 1352720526}
   - component: {fileID: 1352720528}
   m_Layer: 5
-  m_Name: Start
+  m_Name: Enter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2638,7 +2689,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1352720526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 655960783}
+        m_TargetAssemblyTypeName: Game2Manager, Assembly-CSharp
+        m_MethodName: EnterCalculation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1357191764
 GameObject:
   m_ObjectHideFlags: 3
@@ -2876,7 +2939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4y = 2x + 4
+  m_text: 4y = 2x + 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
