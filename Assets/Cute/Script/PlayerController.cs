@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     public enum GameStage {LOBBY,GAME1,GAME2,GAME3,GAME4,GAME5,FINALGAME};
     public GameStage CurrentStage = GameStage.LOBBY;
+    public GameObject bulletPrefab;
+    public Transform gunBarrel;
 
     private void Awake() {
         CurrentStage = GameStage.LOBBY;
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Game1(){
-        Move1();
+        Move2();
         Shoot();
     }
 
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     }
     void Game3(){
-
+        Move2();
     }
 
     void Game4(){
@@ -86,10 +88,22 @@ public class PlayerController : MonoBehaviour
             camFollow.position = transform.position;
         }
     }
+    void Move2(){
+        float horizontal = Input.GetAxisRaw("Horizontal");
+
+        diraction = new Vector3(horizontal,0,0);
+
+        if(diraction.magnitude >= 0.1f){
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+            transform.position += diraction * moveSpeed * Time.deltaTime;
+            camFollow.position = transform.position;
+        }
+    }
 
     //Shooting for game1
     void Shoot(){
         if(Input.GetKeyDown(KeyCode.Space)){
+            Instantiate(bulletPrefab,gunBarrel.position,Quaternion.Euler(Vector3.zero));
             Debug.Log("SHOOT!!");
         }
     }
