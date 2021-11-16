@@ -638,7 +638,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.4512, y: -0.26}
-  m_SizeDelta: {x: 107.7984, y: 37.9966}
+  m_SizeDelta: {x: 91.5548, y: 37.9966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607140949
 MonoBehaviour:
@@ -687,11 +687,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
+  m_fontSize: 18.2
   m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -801,23 +801,33 @@ MonoBehaviour:
   - 1
   - 2
   - 3
-  numValues: 040000000500000006000000
+  - 4
+  numValues: 04000000070000000600000002000000
   modifyNumValues: 0
   dictionaryDataMathOparation: {fileID: 11400000, guid: 017c02bbc335a9d4c8471c3269547c72, type: 2}
   mathOPKeys:
   - 1
   - 2
   - 3
-  mathOPValues: 000000000100000002000000
+  - 4
+  mathOPValues: 00000000010000000200000003000000
   modifymathOPValues: 0
+  dictionaryDataMathPosition: {fileID: 11400000, guid: 4b9f76653267c7b46a1510489fae7ff0, type: 2}
+  mathPosKeys:
+  - 1
+  - 2
+  - 3
+  - 4
+  mathPosValues: 00000000020000000200000002000000
+  modifymathPosValues: 0
   isGameStarted: 0
   selectionChoice: 1
   question1Text: {fileID: 1386108462}
   question2Text: {fileID: 1162074615}
   answerText: {fileID: 607140949}
-  Readme: 
-  leftSideQuestion1: 010000000200000003000000
-  rightSideQuestion1: 020000000100000007000000
+  Readme: "\u0E15\u0E31\u0E49\u0E07\u0E15\u0E23\u0E07\u0E19\u0E35\u0E49"
+  leftSideQuestion1: 000000000400000000000000
+  rightSideQuestion1: 020000000000000007000000
   question1: "\u0E15\u0E31\u0E49\u0E07\u0E2A\u0E21\u0E01\u0E32\u0E23\u0E17\u0E35\u0E48\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E41\u0E01\u0E49"
   leftSideQuestion2: 000000000200000000000000
   rightSideQuestion2: 010000000000000004000000
@@ -1944,7 +1954,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.4512, y: 0.11000055}
-  m_SizeDelta: {x: 107.7984, y: 37.9966}
+  m_SizeDelta: {x: 91.5548, y: 37.9966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1162074615
 MonoBehaviour:
@@ -1993,11 +2003,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
+  m_fontSize: 20.9
   m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -2917,7 +2927,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.4512, y: 0.45000035}
-  m_SizeDelta: {x: 107.7984, y: 37.9966}
+  m_SizeDelta: {x: 91.5548, y: 37.9966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1386108462
 MonoBehaviour:
@@ -2966,11 +2976,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
+  m_fontSize: 18.55
   m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -3499,7 +3509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2

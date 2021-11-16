@@ -7,6 +7,9 @@ using TMPro;
 public enum MathOparation{
     PLUS,MINUS,Multiply,Divide
 }
+public enum MathPosition{
+    X,Y,A
+}
 
 public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 {
@@ -33,6 +36,18 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 
     private Dictionary<string, MathOparation> mathOPDictionary = new Dictionary<string, MathOparation>();
     public bool modifymathOPValues;
+
+    [Header("MathPosition")]
+    [SerializeField]
+    private DictionaryScriptableObjectS2P dictionaryDataMathPosition;
+
+    [SerializeField]
+    private List<string> mathPosKeys = new List<string>();
+    [SerializeField]
+    private List<MathPosition> mathPosValues = new List<MathPosition>();
+
+    private Dictionary<string, MathPosition> mathPosDictionary = new Dictionary<string, MathPosition>();
+    public bool modifymathPosValues;
 
     [Header("InGame")]
     public bool isGameStarted = false;
@@ -70,6 +85,12 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         for (int i = 0; i < Mathf.Min(dictionaryDataMathOparation.Keys.Count, dictionaryDataMathOparation.Values.Count); i++)
         {
             mathOPDictionary.Add(dictionaryDataMathOparation.Keys[i], dictionaryDataMathOparation.Values[i]);
+        }
+
+        //Dictionary
+        for (int i = 0; i < Mathf.Min(dictionaryDataMathPosition.Keys.Count, dictionaryDataMathPosition.Values.Count); i++)
+        {
+            mathPosDictionary.Add(dictionaryDataMathPosition.Keys[i], dictionaryDataMathPosition.Values[i]);
         }
     }
 
@@ -177,6 +198,8 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
                 Divide();
                 break;
         }
+
+        //check answer
         
     }
     public void ResetCalculation(){
@@ -188,15 +211,63 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 
     void Plus(){
         Debug.Log("Plus");
+
+        // for(int n = 0; n < leftSideAnswer.Count; n++){
+        //     leftSideAnswer[n] += NumDictionary[selectionChoice.ToString()];
+        // }
+
+        switch(mathPosDictionary[selectionChoice.ToString()]){
+            case MathPosition.X :
+                leftSideAnswer[0] += NumDictionary[selectionChoice.ToString()];
+                rightSideAnswer[0] += NumDictionary[selectionChoice.ToString()];
+                break;
+            case MathPosition.Y :
+                leftSideAnswer[1] += NumDictionary[selectionChoice.ToString()];
+                rightSideAnswer[1] += NumDictionary[selectionChoice.ToString()];
+                break;
+            case MathPosition.A :
+                leftSideAnswer[2] += NumDictionary[selectionChoice.ToString()];
+                rightSideAnswer[2] += NumDictionary[selectionChoice.ToString()];
+                break;
+        }
     }
     void Minus(){
         Debug.Log("Minus");
+
+        // for(int n = 0; n < leftSideAnswer.Count; n++){
+        //     leftSideAnswer[n] -= NumDictionary[selectionChoice.ToString()];
+        // }
+
+        switch(mathPosDictionary[selectionChoice.ToString()]){
+            case MathPosition.X :
+                leftSideAnswer[0] -= NumDictionary[selectionChoice.ToString()];
+                rightSideAnswer[0] -= NumDictionary[selectionChoice.ToString()];
+                break;
+            case MathPosition.Y :
+                leftSideAnswer[1] -= NumDictionary[selectionChoice.ToString()];
+                rightSideAnswer[1] -= NumDictionary[selectionChoice.ToString()];
+                break;
+            case MathPosition.A :
+                leftSideAnswer[2] -= NumDictionary[selectionChoice.ToString()];
+                rightSideAnswer[2] -= NumDictionary[selectionChoice.ToString()];
+                break;
+        }
     }
     void Multiply(){
         Debug.Log("Multiply");
+
+        for(int n = 0; n < leftSideAnswer.Count; n++){
+            leftSideAnswer[n] *= NumDictionary[selectionChoice.ToString()];
+            rightSideAnswer[n] *= NumDictionary[selectionChoice.ToString()];
+        }
     }
     void Divide(){
         Debug.Log("Divide");
+
+        for(int n = 0; n < leftSideAnswer.Count; n++){
+            leftSideAnswer[n] /= NumDictionary[selectionChoice.ToString()];
+            rightSideAnswer[n] /= NumDictionary[selectionChoice.ToString()];
+        }
     }
 
     //Select Choice
@@ -214,25 +285,10 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Dictionary--------------------------------------------------------------------------------------------
     public void OnBeforeSerialize()
     {
+        //MathNumber
         if (modifyNumValues == false)
         {
             numKeys.Clear();
@@ -244,6 +300,7 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
             }
         }
 
+        //MathOparation
         if (modifymathOPValues == false)
         {
             mathOPKeys.Clear();
@@ -252,6 +309,18 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
             {
                 mathOPKeys.Add(dictionaryDataMathOparation.Keys[i]);
                 mathOPValues.Add(dictionaryDataMathOparation.Values[i]);
+            }
+        }
+
+        //MathPosition
+        if (modifymathPosValues == false)
+        {
+            mathPosKeys.Clear();
+            mathPosValues.Clear();
+            for (int i = 0; i < Mathf.Min(dictionaryDataMathPosition.Keys.Count, dictionaryDataMathPosition.Values.Count); i++)
+            {
+                mathPosKeys.Add(dictionaryDataMathPosition.Keys[i]);
+                mathPosValues.Add(dictionaryDataMathPosition.Values[i]);
             }
         }
     }
@@ -263,6 +332,7 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 
     public void DeserializeDictionary()
     {
+        //MathNumber
         Debug.Log("DESERIALIZATION");
         NumDictionary = new Dictionary<string, int>();
         dictionaryDataNumber.Keys.Clear();
@@ -275,10 +345,11 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         }
         modifyNumValues = false;
 
+        //MathOparation
         Debug.Log("DESERIALIZATION");
         mathOPDictionary = new Dictionary<string, MathOparation>();
-        dictionaryDataNumber.Keys.Clear();
-        dictionaryDataNumber.Values.Clear();
+        dictionaryDataMathOparation.Keys.Clear();
+        dictionaryDataMathOparation.Values.Clear();
         for (int i = 0; i < Mathf.Min(mathOPKeys.Count, mathOPValues.Count); i++)
         {
             dictionaryDataMathOparation.Keys.Add(mathOPKeys[i]);
@@ -286,19 +357,41 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
             mathOPDictionary.Add(mathOPKeys[i], mathOPValues[i]);
         }
         modifymathOPValues = false;
+
+        //MathPosition
+        Debug.Log("DESERIALIZATION");
+        mathPosDictionary = new Dictionary<string, MathPosition>();
+        dictionaryDataMathPosition.Keys.Clear();
+        dictionaryDataMathPosition.Values.Clear();
+        for (int i = 0; i < Mathf.Min(mathPosKeys.Count, mathPosValues.Count); i++)
+        {
+            dictionaryDataMathPosition.Keys.Add(mathPosKeys[i]);
+            dictionaryDataMathPosition.Values.Add(mathPosValues[i]);
+            mathPosDictionary.Add(mathPosKeys[i], mathPosValues[i]);
+        }
+        modifymathPosValues = false;
     }
 
     public void PrintDictionary()
     {
+        //MathNumber
         foreach (var pair in NumDictionary)
         {
             Debug.Log("Key: " + pair.Key + " Value: " + pair.Value);
         }
 
+        //MathOparation
         foreach (var pair in mathOPDictionary)
         {
             Debug.Log("Key: " + pair.Key + " Value: " + pair.Value);
         }
+
+        //MathPosition
+        foreach (var pair in mathPosDictionary)
+        {
+            Debug.Log("Key: " + pair.Key + " Value: " + pair.Value);
+        }
+
     }
     //Dictionary--------------------------------------------------------------------------------------------
 }
