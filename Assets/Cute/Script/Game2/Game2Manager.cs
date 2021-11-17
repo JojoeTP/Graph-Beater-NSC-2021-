@@ -10,9 +10,9 @@ public enum MathOparation{
 public enum MathPosition{
     X,Y,A
 }
-
 public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 {
+    public TextMeshProUGUI choichText;
     [Header("Choice")]
     [SerializeField]
     private DictionaryScriptableObjectS2I dictionaryDataNumber;
@@ -50,8 +50,11 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
     public bool modifymathPosValues;
 
     [Header("InGame")]
+    public bool win = false;
     public bool isGameStarted = false;
     public int selectionChoice = 1;
+    public GameObject winCanvas;
+    PlayerController player;
 
 
     [Header("Text")]
@@ -79,27 +82,13 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
         for (int i = 0; i < Mathf.Min(dictionaryDataNumber.Keys.Count, dictionaryDataNumber.Values.Count); i++)
         {
             NumDictionary.Add(dictionaryDataNumber.Keys[i], dictionaryDataNumber.Values[i]);
-        }
-
-        //Dictionary
-        for (int i = 0; i < Mathf.Min(dictionaryDataMathOparation.Keys.Count, dictionaryDataMathOparation.Values.Count); i++)
-        {
             mathOPDictionary.Add(dictionaryDataMathOparation.Keys[i], dictionaryDataMathOparation.Values[i]);
-        }
-
-        //Dictionary
-        for (int i = 0; i < Mathf.Min(dictionaryDataMathPosition.Keys.Count, dictionaryDataMathPosition.Values.Count); i++)
-        {
             mathPosDictionary.Add(dictionaryDataMathPosition.Keys[i], dictionaryDataMathPosition.Values[i]);
         }
     }
 
     private void Start() {
-        // leftSideAnswer = leftSideQuestion1;
-        // rightSideAnswer = rightSideQuestion1;
-
-        // leftSideQuestion1 = leftSideAnswer;
-        // rightSideQuestion1 = rightSideAnswer;
+        player = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
 
         for(int i = 0; i < leftSideQuestion1.Count; i++){
             leftSideAnswer[i] = leftSideQuestion1[i];
@@ -108,17 +97,22 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     private void Update() {
+        if(!isGameStarted){
+            return;
+        }
         question1 = ConvertToText(leftSideQuestion1,rightSideQuestion1);
         question2 = ConvertToText(leftSideQuestion2,rightSideQuestion2);
         answer = ConvertToText(leftSideAnswer,rightSideAnswer);
 
         setText();
+        SetChoiceText();
     }
 
     private void OnTriggerStay(Collider other) {
         if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStarted){
             //Play game2
             isGameStarted = true;
+            player.CurrentStage = GameStage.GAME2;
         }
     }
 
@@ -183,6 +177,11 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     public void EnterCalculation(){
+        if(!isGameStarted){
+            return;
+        }
+
+        Invoke("CheckAnswer",0.5f);
         //switch check mathOP
         switch(mathOPDictionary[selectionChoice.ToString()]){
             case MathOparation.PLUS:
@@ -198,14 +197,28 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
                 Divide();
                 break;
         }
-
-        //check answer
-        
     }
     public void ResetCalculation(){
+        if(!isGameStarted){
+            return;
+        }
+
         for(int i = 0; i < leftSideQuestion1.Count; i++){
             leftSideAnswer[i] = leftSideQuestion1[i];
             rightSideAnswer[i] = rightSideQuestion1[i];
+        }
+    }
+
+    public void EndGame(){
+        //warp to outside
+        player.CurrentStage = GameStage.LOBBY;
+    }
+
+    void CheckAnswer(){
+        //check answer
+        if(answer == question2){
+            win = true;
+            winCanvas.SetActive(true);
         }
     }
 
@@ -272,6 +285,10 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
 
     //Select Choice
     public void NextChoice(){
+        if(!isGameStarted){
+            return;
+        }
+
         selectionChoice += 1;
         if(selectionChoice > numKeys.Count){
             selectionChoice = 1;
@@ -279,10 +296,47 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     public void PreviousChoice(){
+        if(!isGameStarted){
+            return;
+        }
+
         selectionChoice -= 1;
         if(selectionChoice == 0){
             selectionChoice = numKeys.Count;
         }
+    }
+
+    void SetChoiceText(){
+        string mathOP = "",num = "",pos = "";
+
+        num = NumDictionary[selectionChoice.ToString()].ToString();
+        switch(mathOPDictionary[selectionChoice.ToString()]){
+            case MathOparation.PLUS:
+                mathOP = "+";
+                break;
+            case MathOparation.MINUS:
+                mathOP = "-";
+                break;
+            case MathOparation.Multiply:
+                mathOP = "*";
+                break;
+            case MathOparation.Divide:
+                mathOP = "÷";
+                break;
+        }
+
+        switch(mathPosDictionary[selectionChoice.ToString()]){
+            case MathPosition.X :
+                pos = "X";
+                break;
+            case MathPosition.Y :
+                pos = "Y";
+                break;
+            case MathPosition.A :
+                break;
+        }
+
+        choichText.text = mathOP + num + pos;
     }
 
     //Dictionary--------------------------------------------------------------------------------------------

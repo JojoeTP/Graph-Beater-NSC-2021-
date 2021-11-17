@@ -159,8 +159,6 @@ public class Game1Manager : MonoBehaviour
         game1Canvas.SetActive(false);
         player.CurrentStage = GameStage.LOBBY;
         player.transform.position = outSidePos.position;
-
-        
     }
 
     private void OnTriggerStay(Collider other) {
