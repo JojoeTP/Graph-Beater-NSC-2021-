@@ -7,7 +7,7 @@ public class ControlLevelCam : MonoBehaviour
 {
     // Start is called before the first frame update
     public CinemachineVirtualCamera game3Cam;
-    public GameObject level1Cam,level2Cam,level3Cam,level4Cam,level5Cam,normalCam;
+    public GameObject level1Cam,level2Cam,level3Cam,level4Cam,normalCam;
     ButtonWarp buttonWarp;
     
     void Start()
@@ -36,13 +36,6 @@ public class ControlLevelCam : MonoBehaviour
             game3Cam.LookAt = level4Cam.transform;
             game3Cam.Follow = level4Cam.transform;
             break;
-            case 5:
-            game3Cam.LookAt = level5Cam.transform;
-            game3Cam.Follow = level5Cam.transform;
-            break;
-            case 6:
-            break;
-
         }
 
         // if(buttonWarp.level == 1){

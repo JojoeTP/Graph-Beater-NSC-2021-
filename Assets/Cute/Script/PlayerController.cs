@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameStage CurrentStage = GameStage.LOBBY;
     public GameObject bulletPrefab;
     public Transform gunBarrel;
-
+    public GameObject canvasPostion;
     public List<GameObject> cam = new List<GameObject>();
 
     private void Awake() {
@@ -60,32 +60,36 @@ public class PlayerController : MonoBehaviour
 
     void Lobby(){
         Move1();
+        canvasPostion.SetActive(true);
     }
 
     void Game1(){
         Move2();
         Shoot();
+        canvasPostion.SetActive(false);
     }
 
     void Game2(){
-
+        canvasPostion.SetActive(false);
     }
     void Game3(){
         Move1();
+        canvasPostion.SetActive(false);
     }
 
     void Game4(){
-
+        canvasPostion.SetActive(false);
     }
     void Game5(){
-
+        canvasPostion.SetActive(false);
     }
 
     void FinalGame(){
-
+        canvasPostion.SetActive(false);
     }
     void AnswerQues(){
         //don't MOVE
+        canvasPostion.SetActive(false);
     }
 
     //Player move 1
