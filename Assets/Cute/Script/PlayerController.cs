@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Game4(){
+        Move1();
         canvasPostion.SetActive(false);
     }
     void Game5(){

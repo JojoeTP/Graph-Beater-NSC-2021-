@@ -30,7 +30,7 @@ public class Game3Manager : MonoBehaviour
         if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStarted){
             //Play game2
             isGameStarted = true;
-            player.CurrentStage = GameStage.GAME3;
+            player.CurrentStage = GameStage.GAME4;
         }
     }
 }
