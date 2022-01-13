@@ -58,8 +58,7 @@ public class Game4Manager : MonoBehaviour
 
         if(currentQuestion > amountQuestion){
             //win
-            winCanvas.SetActive(true);
-            print("Win");
+            PlayerWin();
             return;
         }
 
@@ -115,6 +114,11 @@ public class Game4Manager : MonoBehaviour
 
             //Run next Question
             GenerateQuestion();
+    }
+
+    public void PlayerWin(){
+        winCanvas.SetActive(true);
+        print("Win");
     }
 
     public void PlayerLose(){

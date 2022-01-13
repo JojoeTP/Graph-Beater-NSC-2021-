@@ -53,7 +53,8 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
     public bool win = false;
     public bool isGameStarted = false;
     public int selectionChoice = 1;
-    public GameObject canvas;
+    public GameObject gameCanvas;
+    public GameObject tutorialUI;
     public GameObject winCanvas;
     PlayerController player;
 
@@ -114,7 +115,8 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
             //Play game2
             isGameStarted = true;
             player.CurrentStage = GameStage.GAME2;
-            canvas.SetActive(true);
+            tutorialUI.SetActive(true);
+            // gameCanvas.SetActive(true); // move this to set active in tutorial Button
         }
     }
 
@@ -214,7 +216,7 @@ public class Game2Manager : MonoBehaviour, ISerializationCallbackReceiver
     public void EndGame(){
         //warp to outside
         player.CurrentStage = GameStage.LOBBY;
-        canvas.SetActive(false);
+        gameCanvas.SetActive(false);
     }
 
     void CheckAnswer(){
