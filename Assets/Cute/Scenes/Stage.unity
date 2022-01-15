@@ -3425,7 +3425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1601586077263221611, guid: be7ed85708a293b458f3be8d940bd9d0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be7ed85708a293b458f3be8d940bd9d0, type: 3}
@@ -3967,7 +3967,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169216867}
   m_LocalRotation: {x: 0.0093579795, y: -0, z: -0, w: 0.99995625}
-  m_LocalPosition: {x: -441.2889, y: 8.016162, z: 1.4104271}
+  m_LocalPosition: {x: 44.761086, y: 5.966162, z: 63.440426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 69089849}
@@ -4996,8 +4996,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 301006248}
-        m_TargetAssemblyTypeName: Game4Manager, Assembly-CSharp
+      - m_Target: {fileID: 1525909284}
+        m_TargetAssemblyTypeName: Game3Manager, Assembly-CSharp
         m_MethodName: EndGame
         m_Mode: 1
         m_Arguments:
@@ -11867,6 +11867,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 390729481}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
+      propertyPath: lastQuestion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1060016472}
@@ -11877,7 +11881,7 @@ PrefabInstance:
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: nextLevelWarpPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1154715970}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: currentLevelWarpPrefab
       value: 
@@ -12112,18 +12116,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 301006248}
-        m_TargetAssemblyTypeName: Game4Manager, Assembly-CSharp
-        m_MethodName: GenerateQuestion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1694514426}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -15533,6 +15525,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 390729481}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
+      propertyPath: lastQuestion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1060016472}
@@ -15543,7 +15539,7 @@ PrefabInstance:
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: nextLevelWarpPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1154715970}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: currentLevelWarpPrefab
       value: 
@@ -16943,7 +16939,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 892143626}
-  m_LocalRotation: {x: 0.47185794, y: 0.000000021454222, z: -0.0000000114819505, w: 0.88167465}
+  m_LocalRotation: {x: 0.47185794, y: -0.000000021454227, z: 0.000000011481954, w: 0.88167465}
   m_LocalPosition: {x: 0, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -20064,7 +20060,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1093254882}
-  - component: {fileID: 1093254883}
   m_Layer: 0
   m_Name: LevelCam
   m_TagString: Untagged
@@ -20087,27 +20082,10 @@ Transform:
   - {fileID: 383695702}
   - {fileID: 501176296}
   - {fileID: 689434225}
+  - {fileID: 1829690213}
   m_Father: {fileID: 1525909282}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1093254883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1093254881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002220cf3b40adf41a4e5b0831e5bcf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  game3Cam: {fileID: 169216869}
-  level1Cam: {fileID: 1135430150}
-  level2Cam: {fileID: 383695701}
-  level3Cam: {fileID: 501176295}
-  level4Cam: {fileID: 689434224}
-  normalCam: {fileID: 0}
 --- !u!1 &1100172329
 GameObject:
   m_ObjectHideFlags: 0
@@ -21033,6 +21011,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7400766238897454636, guid: fc1c55f7bbedc1e48b96afcbe45b9d95, type: 3}
   m_PrefabInstance: {fileID: 1140403347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1154715970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1601586077263221611, guid: be7ed85708a293b458f3be8d940bd9d0, type: 3}
+  m_PrefabInstance: {fileID: 143601331}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1158009753
 PrefabInstance:
@@ -23018,7 +23001,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311227558}
-  m_LocalRotation: {x: 0.47185794, y: 0.000000021454222, z: -0.0000000114819505, w: 0.88167465}
+  m_LocalRotation: {x: 0.47185794, y: -0.000000021454227, z: 0.000000011481954, w: 0.88167465}
   m_LocalPosition: {x: -8.761087, y: 15.883838, z: -29.180428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -27453,7 +27436,16 @@ MonoBehaviour:
   win: 0
   isGameStarted: 0
   endGameWarpPosition: {fileID: 324455972}
-  winCanvas: {fileID: 390729481}
+  tutorialUI: {fileID: 1694514426}
+  winCanvas: {fileID: 1708095406}
+  game3Cam: {fileID: 169216869}
+  levelCam:
+  - {fileID: 1135430151}
+  - {fileID: 383695702}
+  - {fileID: 501176296}
+  - {fileID: 689434225}
+  - {fileID: 1829690213}
+  level: 1
 --- !u!4 &1530442022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1518329392413332614, guid: 51f43994c651b6342a7df33d3241e1e8, type: 3}
@@ -32996,13 +32988,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 390729481}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
+      propertyPath: lastQuestion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1060016472}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: nextLevelWarpPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1154715970}
     - target: {fileID: 5676336778466042633, guid: d94375bb065be6949a744167659407ae, type: 3}
       propertyPath: currentLevelWarpPrefab
       value: 
@@ -33062,6 +33058,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5676336779074945741, guid: d94375bb065be6949a744167659407ae, type: 3}
   m_PrefabInstance: {fileID: 1828012088}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1829690212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829690213}
+  m_Layer: 0
+  m_Name: Finish
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1829690213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829690212}
+  m_LocalRotation: {x: 0.32460395, y: -0, z: -0, w: 0.94585}
+  m_LocalPosition: {x: 0, y: 52.42, z: 10.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1093254882}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 37.883, y: 0, z: 0}
 --- !u!1001 &1832162826
 PrefabInstance:
   m_ObjectHideFlags: 0
