@@ -5,18 +5,19 @@ using TMPro;
 
 public class ButtonWarp : MonoBehaviour
 {
-    public GameObject playerPrefab;
+    PlayerController playerPrefab;
+    Game3Manager game3Manager;
+
     public GameObject nextLevelWarpPrefab;
     public GameObject currentLevelWarpPrefab;
     public bool correctAnswer = false;
+    public bool lastQuestion = false;
     public TMP_Text guideText;
-    public int level = 1;
-    public GameObject winCanvas;
 
-    ButtonWarp[] buttonWarp;
     void Start()
     {
-        buttonWarp = FindObjectsOfType<ButtonWarp>();
+        playerPrefab = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
+        game3Manager = FindObjectOfType<Game3Manager>().GetComponent<Game3Manager>();
     }
     
     // box collider error
@@ -30,9 +31,7 @@ public class ButtonWarp : MonoBehaviour
                 Debug.Log("E");
                 if(correctAnswer == true){
                     correct_MoveToNextLevel();
-                    foreach(ButtonWarp n in buttonWarp){
-                        n.GetComponent<ButtonWarp>().level += 1;
-                    }
+                    game3Manager.level++;
                 }
                 else{
                     inCorrect_MoveToCurrentLevel();
@@ -46,9 +45,8 @@ public class ButtonWarp : MonoBehaviour
     }
     
     void correct_MoveToNextLevel(){
-        if(nextLevelWarpPrefab == null){
-            winCanvas.SetActive(true);
-            return;
+        if(lastQuestion){
+            game3Manager.winCanvas.SetActive(true);
         }
         playerPrefab.transform.position = nextLevelWarpPrefab.transform.position;
     }

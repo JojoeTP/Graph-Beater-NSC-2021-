@@ -12,16 +12,20 @@ public class Game1Manager : MonoBehaviour
     public DoorScript doorGame1;
     public List<Target> Targets = new List<Target>();
     public List<int> question = new List<int>();
+    public List<int> currentQuestion = new List<int>();
     PlayerController player;
 
 
     public GameObject game1AnswerUI;
     public GameObject game1Canvas;
-    public GameObject winText;
     public TextMeshProUGUI XText;
     public TMP_InputField inputField;
     public float answer;
     public int _question;
+
+    public GameObject tutorialUI;
+    public GameObject winCanvas;
+    public GameObject loseCanvas;
 
     [Header("Time")]
     public float time;
@@ -38,7 +42,6 @@ public class Game1Manager : MonoBehaviour
     public int inCorrectAnswer = 0;
     public Image inCorrectBar;
     // Target[] _targets;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -46,26 +49,24 @@ public class Game1Manager : MonoBehaviour
         player = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
         // _targets = FindObjectsOfType<Target>();
         // AssignQuestionToAllTarget();
-
-        timer = time;
-
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        UpdateBar();
         // TimeCount();
     }
 
     public void AssignQuestionToTarget(Target _target){
-        if(question.Count < 1){
+        if(currentQuestion.Count < 1){
             _target.SetQuestion(-1);
             return;
         }
 
-        int random = Random.Range(0,question.Count);
-        int selectQuestion = question[random];
-        question.RemoveAt(random);
+        int random = Random.Range(0,currentQuestion.Count);
+        int selectQuestion = currentQuestion[random];
+        currentQuestion.RemoveAt(random);
         _target.SetQuestion(selectQuestion);
     }
 
@@ -106,6 +107,11 @@ public class Game1Manager : MonoBehaviour
     public void SetAnswer(){
         answer = int.Parse(inputField.text);
         CalculatorQuestion();
+        foreach(Target n in Targets){
+            if(n.lerpValue < 1){
+                n.ShowTarget(); //Move Target to when answer the question finish
+            }
+        }
     }
 
     void TimeCount(){
@@ -118,40 +124,60 @@ public class Game1Manager : MonoBehaviour
         }
     }
 
-    void ProgressBar(){
+    void UpdateBar(){
         progressBar.fillAmount = (float)correctAnswer / (float)numToAnswer;
+        inCorrectBar.fillAmount = (float)inCorrectAnswer / (float)maxInCorrectAnswer;
+    }
 
+    void ProgressBar(){
         if(correctAnswer == numToAnswer){
             Debug.Log("Win");
             win = true;
             //show Text win
-            winText.SetActive(true);
+            winCanvas.SetActive(true);
 
             doorGame1.GetComponent<Animator>().enabled = false;
         }
     }
 
     void InCorrectBar(){
-        inCorrectBar.fillAmount = (float)inCorrectAnswer / (float)maxInCorrectAnswer;
-
         if(inCorrectAnswer == maxInCorrectAnswer){
             Debug.Log("GameOver");
             isGameStarted = false;
+            loseCanvas.SetActive(true);
+            // EndGame();
+            // FindObjectOfType<InstantiateGame1Manager>().GetComponent<InstantiateGame1Manager>().OnReset();
 
-            EndGame();
-            FindObjectOfType<InstantiateGame1Manager>().GetComponent<InstantiateGame1Manager>().OnReset();
-
-            Destroy(this.gameObject);
+            // Destroy(this.gameObject);
             
         }
     }
 
     public void StartGame(){
+        timer = time;
+        inCorrectAnswer = 0;
+        correctAnswer = 0;
+
+        if(currentQuestion != null){
+            currentQuestion.RemoveRange(0,currentQuestion.Count);
+        }
+
+        foreach(int n in question){
+            currentQuestion.Add(n);
+        }
+
         game1Canvas.SetActive(true);
+        tutorialUI.SetActive(true);
+    }
+
+    public void ActiveTargetAndRandomQuestion(){
+        //use ActiveTargetAndRandomQuestion() in button in tutorialUI
         foreach(Target n in Targets){
             n.gameObject.SetActive(true);
+            n.ShowTarget();
         }
-        player.CurrentStage = GameStage.GAME1;
+
+        //And !!!!! Don't forget to random question
     }
 
     public void EndGame(){
@@ -159,12 +185,18 @@ public class Game1Manager : MonoBehaviour
         game1Canvas.SetActive(false);
         player.CurrentStage = GameStage.LOBBY;
         player.transform.position = outSidePos.position;
+
+        //Hide all target
+        foreach(Target n in Targets){
+            n.GetComponent<Target>().HideTargetWhenEndGame();
+        }
     }
 
     private void OnTriggerStay(Collider other) {
         if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStarted){
-            StartGame();
             isGameStarted = true;
+            player.CurrentStage = GameStage.GAME1;
+            StartGame();
         }
     }
 }

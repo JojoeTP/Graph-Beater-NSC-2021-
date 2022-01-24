@@ -18,7 +18,6 @@ public class Target : MonoBehaviour
         game1Manager = FindObjectOfType<Game1Manager>().GetComponent<Game1Manager>();
         
         transform.rotation = Quaternion.Lerp(Quaternion.Euler(-90f,180,0f),Quaternion.Euler(0f,180,0f),0f);
-        StartCoroutine(ShowTarget());
     }
     private void FixedUpdate() {
             transform.rotation = Quaternion.Lerp(Quaternion.Euler(-90f,180,0f),Quaternion.Euler(0f,180,0f),lerpValue);
@@ -28,8 +27,11 @@ public class Target : MonoBehaviour
     void AnswerQuestion(){
         game1Manager.ShowCanvasAnswer(question);
     }
+    public void ShowTarget(){
+        StartCoroutine(AssignToTarget());
+    }
 
-    IEnumerator ShowTarget(){
+    IEnumerator AssignToTarget(){
         
         yield return new WaitForSeconds(2f);
         game1Manager.AssignQuestionToTarget(this);
@@ -43,7 +45,9 @@ public class Target : MonoBehaviour
 
     public void HideTarget(){
         AnswerQuestion();
-        StartCoroutine(IEHideTarget());
+        if(question >= 0){
+            StartCoroutine(IEHideTarget());
+        }
     }
     
     public void SetQuestion(int _question){
@@ -63,7 +67,12 @@ public class Target : MonoBehaviour
             lerpValue -= Time.deltaTime;
             yield return null;
         }
-        StartCoroutine(ShowTarget()); //Move to when answer the question finish
+        // ShowTarget(); //Move to when answer the question finish
+    }
+
+    public void HideTargetWhenEndGame(){
+        StopAllCoroutines();
+        lerpValue = 0;
     }
 
     IEnumerator IEShowTarget(){

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Transform gunBarrel;
     public GameObject canvasPostion;
     public List<GameObject> cam = new List<GameObject>();
+    public GameObject TaskUI;
 
     private void Awake() {
         CurrentStage = GameStage.LOBBY;
@@ -61,27 +62,34 @@ public class PlayerController : MonoBehaviour
     void Lobby(){
         Move1();
         canvasPostion.SetActive(true);
+        TaskUI.SetActive(true);
     }
 
     void Game1(){
         Move2();
         Shoot();
         canvasPostion.SetActive(false);
+        TaskUI.SetActive(false);
     }
 
     void Game2(){
         canvasPostion.SetActive(false);
+        TaskUI.SetActive(false);
     }
     void Game3(){
         Move1();
         canvasPostion.SetActive(false);
+        TaskUI.SetActive(false);
     }
 
     void Game4(){
+        Move1();
         canvasPostion.SetActive(false);
+        TaskUI.SetActive(false);
     }
     void Game5(){
         canvasPostion.SetActive(false);
+        TaskUI.SetActive(false);
     }
 
     void FinalGame(){
