@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Game4Manager : MonoBehaviour
 {
@@ -19,17 +21,25 @@ public class Game4Manager : MonoBehaviour
     public float y = 0;
     public float a = 0;
     public string question;
-    public float timeCount = 10;
-    public bool moreThan;
+    public float timeCount = 10; 
+    public bool moreThan; 
     
     [Header("Setting Game")]
-    public int maxPlayerHP = 3;
-    public int playerHP = 3;
-    public int amountQuestion = 10;
+    public int maxPlayerHP = 3; 
+    public int playerHP = 3; 
+    public int amountQuestion = 10; 
     public int currentQuestion = 0;
 
     [Header("Line")]
     public LineRenderer line;
+
+    [Header("UI")]
+    public Canvas canvas;
+    public TextMeshProUGUI Question; //Jojoe
+    public Image CountdownImage; //Jojoe   
+    public TextMeshProUGUI QuestionProgress; //Jojoe
+    public TextMeshProUGUI Morethan; //Jojoe
+    public Image Healthbar; //Jojoe    
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +60,7 @@ public class Game4Manager : MonoBehaviour
     public void GenerateQuestion(){
         //if win or lose don't generate question
 
+        QuestionProgress.text = "Question Progress : " + currentQuestion + "/" + amountQuestion; //Jojoe
         //Maybe run when VFX finish
         currentQuestion++;
         if(playerHP <= 0){
@@ -69,13 +80,29 @@ public class Game4Manager : MonoBehaviour
         int boolean = Random.Range(0,2);
         if(boolean == 0){
             moreThan = false;
+            Morethan.gameObject.SetActive(false); //Jojoe
         }else{
             moreThan = true;
+            Morethan.gameObject.SetActive(true); //Jojoe
         }
 
         //Convert question to string and start chack position player
         ConvertQuestionToString(); //convert every time generate new question
+        Question.text = question; //Jojoe
+        
         StartCoroutine("CheckPlayerPosition");
+        StartCoroutine("CountdownText"); //Jojoe
+    }
+
+    IEnumerator CountdownText(){ //Jojoe
+        float count = timeCount;
+        
+        while(count>0){
+            yield return new WaitForSeconds(1f);
+            count--;
+            float countBar = count/timeCount;
+            CountdownImage.fillAmount = countBar;
+        }
     }
     
     //Check player Position
@@ -111,6 +138,8 @@ public class Game4Manager : MonoBehaviour
                     }
                 }
             }
+            float playerHealthbar = (float)playerHP/(float)maxPlayerHP; //Jojoe
+            Healthbar.fillAmount = playerHealthbar; //Jojoe
 
             //Run next Question
             GenerateQuestion();
@@ -130,6 +159,7 @@ public class Game4Manager : MonoBehaviour
         player.transform.parent = null;
 
         loseCanvas.SetActive(false);
+        canvas.gameObject.SetActive(false); //Jojoe
     }
 
     //Convert Question To String Method
@@ -210,7 +240,7 @@ public class Game4Manager : MonoBehaviour
         playerHP = maxPlayerHP;
         currentQuestion = 0;
         tutorialUI.SetActive(true);
-
+        canvas.gameObject.SetActive(true); //Jojoe
         //use GenerateQuestion() in button in tutorialUI
     }
 
@@ -224,5 +254,6 @@ public class Game4Manager : MonoBehaviour
         player.transform.parent = null;
 
         winCanvas.SetActive(false);
+        canvas.gameObject.SetActive(false); //Jojoe
     }
 }
