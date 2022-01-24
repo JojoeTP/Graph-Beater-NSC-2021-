@@ -15,8 +15,26 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> cam = new List<GameObject>();
     public GameObject TaskUI;
 
+    [Header("AIM")]
+    Ray ray;
+    RaycastHit hit;
+    Vector3 target = Vector3.zero;
+    public bool isAim = false;
+    public GameObject game1Cam;
+    public GameObject aimCam;
+    public GameObject aimReticle;
+
     private void Awake() {
         CurrentStage = GameStage.LOBBY;
+    }
+
+    private void Update() {
+        //can change to aim cam
+        if(Input.GetMouseButtonDown(1)){
+            isAim = true;
+        }else if(Input.GetMouseButtonUp(1)){
+            isAim = false;
+        }    
     }
 
     // Update is called once per frame
@@ -29,7 +47,6 @@ public class PlayerController : MonoBehaviour
             break;
             case GameStage.GAME1 :
             Game1();
-            ChangeCamera(1);
             break;
             case GameStage.GAME2 :
             Game2();
@@ -67,9 +84,29 @@ public class PlayerController : MonoBehaviour
 
     void Game1(){
         Move2();
+        ShootRay();
         Shoot();
         canvasPostion.SetActive(false);
         TaskUI.SetActive(false);
+
+        if(isAim && !aimCam.activeInHierarchy){
+            game1Cam.SetActive(false);
+            aimCam.SetActive(true);
+
+            //Allow time for the camera to blend before enabling the UI
+            StartCoroutine(ShowReticle());
+        }else if(!isAim && !game1Cam.activeInHierarchy){
+            game1Cam.SetActive(true);
+            aimCam.SetActive(false);
+            aimReticle.SetActive(false);
+        }
+        
+    }
+
+    IEnumerator ShowReticle()
+    {
+        yield return new WaitForSeconds(0.25f);
+        aimReticle.SetActive(enabled);
     }
 
     void Game2(){
@@ -129,16 +166,31 @@ public class PlayerController : MonoBehaviour
     //Shooting for game1
     void Shoot(){
         if(Input.GetKeyDown(KeyCode.Space)){
-            Instantiate(bulletPrefab,gunBarrel.position,Quaternion.Euler(Vector3.zero));
+            GameObject bullet = Instantiate(bulletPrefab,gunBarrel.position,Quaternion.Euler(Vector3.zero));
+            bullet.GetComponent<BulletMove>().target = target;
             Debug.Log("SHOOT!!");
         }
     }
 
-    void ChangeCamera(int _cam){
+    public void ChangeCamera(int _cam){
         foreach(GameObject n in cam){
             n.SetActive(false);
         }
         
         cam[_cam].SetActive(true);
+    }
+
+    public void ShootRay(){
+        ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        
+        if (Physics.Raycast(ray, out hit)){
+            target = hit.point;
+        }else{
+            target = Vector3.zero;
+        }
+    }
+
+    private void OnDrawGizmos() {
+            Gizmos.DrawRay(ray);
     }
 }
