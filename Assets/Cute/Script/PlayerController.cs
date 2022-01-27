@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameStage CurrentStage = GameStage.LOBBY;
     public GameObject bulletPrefab;
     public Transform gunBarrel;
-    public GameObject canvasPostion;
+    public PositionText canvasPostion;
     public List<GameObject> cam = new List<GameObject>();
     public GameObject TaskUI;
 
@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
 
     void Lobby(){
         Move1();
-        canvasPostion.SetActive(true);
         TaskUI.SetActive(true);
     }
 
@@ -86,7 +85,7 @@ public class PlayerController : MonoBehaviour
         Move2();
         ShootRay();
         Shoot();
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
         TaskUI.SetActive(false);
 
         if(isAim && !aimCam.activeInHierarchy){
@@ -110,31 +109,31 @@ public class PlayerController : MonoBehaviour
     }
 
     void Game2(){
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
         TaskUI.SetActive(false);
     }
     void Game3(){
         Move1();
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
         TaskUI.SetActive(false);
     }
 
     void Game4(){
         Move1();
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
         TaskUI.SetActive(false);
     }
     void Game5(){
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
         TaskUI.SetActive(false);
     }
 
     void FinalGame(){
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
     }
     void AnswerQues(){
         //don't MOVE
-        canvasPostion.SetActive(false);
+        canvasPostion.GetComponent<PositionText>().setActivePositionCanvas = false;
     }
 
     //Player move 1

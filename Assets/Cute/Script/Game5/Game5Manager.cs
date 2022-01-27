@@ -11,6 +11,10 @@ public class QuestionGame5{
     public bool answer1Correct;
     public string answer2;
     public bool answer2Correct;
+    public string answer3;
+    public bool answer3Correct;
+    public string answer4;
+    public bool answer4Correct;
 }
 
 public class Game5Manager : MonoBehaviour
@@ -30,13 +34,18 @@ public class Game5Manager : MonoBehaviour
     [Header ("Question Text Setting")]
     public GameObject gameCanvas;
     public TextMeshProUGUI textDisplay;
-    public Text buttonTextLeft;
-    public Text buttonTextRight;
+    [Header("Button")]
+    public TextMeshProUGUI buttonText1;
+    public TextMeshProUGUI buttonText2;
+    public TextMeshProUGUI buttonText3;
+    public TextMeshProUGUI buttonText4;
     [Header("Image")]
     public GameObject incorrectPic;
     [Header("Button")]
-    public Button buttonLeft;
-    public Button buttonRight;
+    public Button button1;
+    public Button button2;
+    public Button button3;
+    public Button button4;
     
 
     // Start is called before the first frame update
@@ -81,11 +90,13 @@ public class Game5Manager : MonoBehaviour
         }
 
         textDisplay.text = question[currentQuestion].question;
-        buttonTextLeft.text = question[currentQuestion].answer1;
-        buttonTextRight.text = question[currentQuestion].answer2;
+        buttonText1.text = question[currentQuestion].answer1;
+        buttonText2.text = question[currentQuestion].answer2;
+        buttonText3.text = question[currentQuestion].answer3;
+        buttonText4.text = question[currentQuestion].answer4;
     }
 
-    public void OnCliclLeftButton(){
+    public void OnClickButton1(){
         if(question[currentQuestion].answer1Correct){
             currentQuestion++;
 
@@ -94,22 +105,57 @@ public class Game5Manager : MonoBehaviour
         }
         else{
             incorrectPic.SetActive(true);
-            buttonLeft.enabled = false;
-            buttonRight.enabled = false;
+            button1.enabled = false;
+            button2.enabled = false;
+            button3.enabled = false;
+            button4.enabled = false;
+
 
             StartCoroutine(controlIncorrectPic(2.0f));
         }
     }
 
-    public void OnClickRightButton(){
+    public void OnClickButton2(){
         if(question[currentQuestion].answer2Correct){
             currentQuestion++;
             SwitchQuestion();
         }
         else{
             incorrectPic.SetActive(true);
-            buttonLeft.enabled = false;
-            buttonRight.enabled = false;
+            button1.enabled = false;
+            button2.enabled = false;
+            button3.enabled = false;
+            button4.enabled = false;
+
+            StartCoroutine(controlIncorrectPic(2.0f));
+        }
+    }
+    public void OnClickButton3(){
+        if(question[currentQuestion].answer3Correct){
+            currentQuestion++;
+            SwitchQuestion();
+        }
+        else{
+            incorrectPic.SetActive(true);
+            button1.enabled = false;
+            button2.enabled = false;
+            button3.enabled = false;
+            button4.enabled = false;
+
+            StartCoroutine(controlIncorrectPic(2.0f));
+        }
+    }
+    public void OnClickButton4(){
+        if(question[currentQuestion].answer4Correct){
+            currentQuestion++;
+            SwitchQuestion();
+        }
+        else{
+            incorrectPic.SetActive(true);
+            button1.enabled = false;
+            button2.enabled = false;
+            button3.enabled = false;
+            button4.enabled = false;
 
             StartCoroutine(controlIncorrectPic(2.0f));
         }
@@ -118,8 +164,10 @@ public class Game5Manager : MonoBehaviour
     private IEnumerator controlIncorrectPic(float waitTime){
         yield return new WaitForSeconds(waitTime);
         incorrectPic.gameObject.SetActive(false);
-        buttonLeft.enabled = true;
-        buttonRight.enabled = true;
+        button1.enabled = true;
+        button2.enabled = true;
+        button3.enabled = true;
+        button4.enabled = true;
     }
 
     

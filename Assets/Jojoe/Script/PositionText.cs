@@ -6,7 +6,7 @@ using TMPro;
 public class PositionText : MonoBehaviour
 {
     public TextMeshProUGUI positionTextPrefab;
-    bool setActivePositionCanvas = true;
+    public bool setActivePositionCanvas = true;
     Transform playerPosition;
     public GameObject playerPrefab;
 
@@ -21,6 +21,7 @@ public class PositionText : MonoBehaviour
     void Update() {
         OnPositionChange();
         press_H_toHideText();
+        
     }
 
     void OnPositionChange(){
@@ -36,13 +37,17 @@ public class PositionText : MonoBehaviour
 
     void press_H_toHideText(){
         if(Input.GetKeyDown(KeyCode.H)){
-            if(setActivePositionCanvas == true){
-                setActivePositionCanvas = false;
-            }
-            else{
-                setActivePositionCanvas = true;
-            }
+            HideText();
         }
         positionTextPrefab.gameObject.SetActive(setActivePositionCanvas);
+    }
+
+    public void HideText(){
+        if(setActivePositionCanvas){
+            setActivePositionCanvas = false;
+        }
+        else{
+            setActivePositionCanvas = true;
+        }
     }
 }
