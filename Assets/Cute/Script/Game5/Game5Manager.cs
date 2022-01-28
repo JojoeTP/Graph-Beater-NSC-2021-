@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class QuestionGame5{
@@ -168,6 +169,10 @@ public class Game5Manager : MonoBehaviour
         button2.enabled = true;
         button3.enabled = true;
         button4.enabled = true;
+    }
+
+    public void LoadMainmenu(){
+        SceneManager.LoadScene(0);
     }
 
     
