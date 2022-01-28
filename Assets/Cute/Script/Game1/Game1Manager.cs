@@ -19,18 +19,23 @@ public class Game1Manager : MonoBehaviour
     public GameObject game1AnswerUI;
     public GameObject game1Canvas;
     public TextMeshProUGUI XText;
-    public TMP_InputField inputField;
-    public float answer;
-    public int _question;
+    // public TMP_InputField inputField;
+    // public float answer;
+    // public int _question;
 
     public GameObject tutorialUI;
     public GameObject winCanvas;
     public GameObject loseCanvas;
 
-    [Header("Time")]
-    public float time;
-    float timer;
-    public Image timeImageBar;
+    [Header("Question")]
+    public int x = 0;
+    public int y = 0;
+    public int a = 0;
+
+    // [Header("Time")]
+    // public float time;
+    // float timer;
+    // public Image timeImageBar;
    
     [Header("Progress")]
     public int numToAnswer;
@@ -70,59 +75,68 @@ public class Game1Manager : MonoBehaviour
         _target.SetQuestion(selectQuestion);
     }
 
-    //calculate
-    public void CalculatorQuestion(){
-        int x = _question;
-        int y = x + 2;
+    //calculate when hit sub target
+    public void CalculatorQuestion(float question,float answer){
+        float _x = question;
+        float _y = ((_x * x) + a) / y; //change this if you want to change question
 
-        if(answer == y){
+        if(answer == _y){
             //correct
             Debug.Log("Correct");
             correctAnswer += 1;
-            HideCanvas();
+            // HideCanvas();
         }else{
             //not correct
             Debug.Log("InCorrect");
             inCorrectAnswer += 1;
-            HideCanvas();
+            // HideCanvas();
         }
 
         ProgressBar();
         InCorrectBar();
     }
 
-    public void ShowCanvasAnswer(int _x){
-        _question = _x;
-        XText.text = "X = " + _x;
-        inputField.text = "Input Answer";
-        game1AnswerUI.SetActive(true);
-        player.CurrentStage = GameStage.ANSWERQUES;
+    public float FindAnswer(float question){
+        float _y = question + 2;
+        return _y;
     }
 
-    public void HideCanvas(){
-        game1AnswerUI.SetActive(false);
-        player.CurrentStage = GameStage.GAME1;
-    }
+    //Don't use it any more!
+    // public void ShowCanvasAnswer(int _x){
+    //     _question = _x;
+    //     XText.text = "X = " + _x;
+    //     inputField.text = "Input Answer";
+    //     game1AnswerUI.SetActive(true);
+    //     player.CurrentStage = GameStage.ANSWERQUES;
+    // }
 
-    public void SetAnswer(){
-        answer = int.Parse(inputField.text);
-        CalculatorQuestion();
-        foreach(Target n in Targets){
-            if(n.lerpValue < 1){
-                n.ShowTarget(); //Move Target to when answer the question finish
-            }
-        }
-    }
+    //Don't use it any more!
+    // public void HideCanvas(){
+    //     game1AnswerUI.SetActive(false);
+    //     player.CurrentStage = GameStage.GAME1;
+    // }
 
-    void TimeCount(){
-        timer -= 1 * Time.deltaTime;
+    //Don't use it any more!
+    // public void SetAnswer(){
+    //     answer = int.Parse(inputField.text);
+    //     // CalculatorQuestion();
+    //     foreach(Target n in Targets){
+    //         if(n.lerpValue < 1){
+    //             n.ShowTarget(); //Move Target to when answer the question finish
+    //         }
+    //     }
+    // }
 
-        timeImageBar.fillAmount = timer / time;
+    //TimeCount
+    // void TimeCount(){
+    //     timer -= 1 * Time.deltaTime;
 
-        if(timer <= 0){
-            Debug.Log("GameOver");
-        }
-    }
+    //     timeImageBar.fillAmount = timer / time;
+
+    //     if(timer <= 0){
+    //         Debug.Log("GameOver");
+    //     }
+    // }
 
     void UpdateBar(){
         progressBar.fillAmount = (float)correctAnswer / (float)numToAnswer;
@@ -154,7 +168,7 @@ public class Game1Manager : MonoBehaviour
     }
 
     public void StartGame(){
-        timer = time;
+        // timer = time;
         inCorrectAnswer = 0;
         correctAnswer = 0;
 
@@ -196,6 +210,7 @@ public class Game1Manager : MonoBehaviour
         if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isGameStarted){
             isGameStarted = true;
             player.CurrentStage = GameStage.GAME1;
+            player.ChangeCamera(1);
             StartGame();
         }
     }

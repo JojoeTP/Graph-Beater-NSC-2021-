@@ -7,12 +7,15 @@ public class Target : MonoBehaviour
 {
     Game1Manager game1Manager;
     public TextMeshProUGUI questionText;
-    int question = 0;
+    float question = 0;
+    float answer = 0;
 
     [Range(0,1)]
     public float lerpValue = 0;
 
     public float countShowTime = 2;
+
+    public List<SubTarget> subTargets = new List<SubTarget>();
 
     private void Start() {
         game1Manager = FindObjectOfType<Game1Manager>().GetComponent<Game1Manager>();
@@ -24,9 +27,9 @@ public class Target : MonoBehaviour
     }
 
     //show canvas
-    void AnswerQuestion(){
-        game1Manager.ShowCanvasAnswer(question);
-    }
+    // void AnswerQuestion(){
+    //     game1Manager.ShowCanvasAnswer(question);
+    // }
     public void ShowTarget(){
         StartCoroutine(AssignToTarget());
     }
@@ -44,10 +47,12 @@ public class Target : MonoBehaviour
     }
 
     public void HideTarget(){
-        AnswerQuestion();
-        if(question >= 0){
-            StartCoroutine(IEHideTarget());
-        }
+        //Change how to answer
+        //AnswerQuestion(); 
+
+        // if(question >= 0){
+        StartCoroutine(IEHideTarget());
+        // }
     }
     
     public void SetQuestion(int _question){
@@ -67,7 +72,7 @@ public class Target : MonoBehaviour
             lerpValue -= Time.deltaTime;
             yield return null;
         }
-        // ShowTarget(); //Move to when answer the question finish
+        ShowTarget(); //Move to when answer the question finish
     }
 
     public void HideTargetWhenEndGame(){
@@ -81,4 +86,32 @@ public class Target : MonoBehaviour
             yield return null;
         }
     }
+
+    //Sub target
+    public void ShowSubTarget(){
+        //Random answer in on subTarget
+
+        foreach(SubTarget n in subTargets){
+            n.gameObject.SetActive(true);
+            n.RandomAnswer();
+        }
+
+        answer = game1Manager.FindAnswer(question);
+        SetAnswerToRandomSubTarget();
+    }
+
+    void SetAnswerToRandomSubTarget(){
+        int random = Random.Range(0,subTargets.Count);
+        subTargets[random].answer = answer;
+    }
+
+    //calculate on this funtion
+    public void HideSubTarget(float answer){
+        game1Manager.CalculatorQuestion(question,answer);
+
+        foreach(SubTarget n in subTargets){
+            n.gameObject.SetActive(false);
+        }
+    }
+    
 }

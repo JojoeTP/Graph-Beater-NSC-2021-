@@ -2441,12 +2441,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '6y+24=18x+42
-
-    6y+24=6x+48'
+  m_text: "\u0E2D\u0E32\u0E32\u0E23\u0E48\u0E32\u0E32"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
+  m_sharedMaterial: {fileID: -6426207016811788658, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2470,8 +2468,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.72
-  m_fontSizeBase: 0.72
+  m_fontSize: 0.93
+  m_fontSizeBase: 0.93
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3714,28 +3712,48 @@ MonoBehaviour:
     answer1Correct: 1
     answer2: 2
     answer2Correct: 0
+    answer3: 
+    answer3Correct: 0
+    answer4: 
+    answer4Correct: 0
   - question: 1111
     answer1: 1
     answer1Correct: 1
     answer2: 2
     answer2Correct: 0
+    answer3: 
+    answer3Correct: 0
+    answer4: 
+    answer4Correct: 0
   - question: 222222
     answer1: 1
     answer1Correct: 0
     answer2: 2
     answer2Correct: 1
+    answer3: 
+    answer3Correct: 0
+    answer4: 
+    answer4Correct: 0
   - question: 222222
     answer1: 1
     answer1Correct: 0
     answer2: 2
     answer2Correct: 1
+    answer3: 
+    answer3Correct: 0
+    answer4: 
+    answer4Correct: 0
   gameCanvas: {fileID: 279805718}
   textDisplay: {fileID: 1173139348}
-  buttonTextLeft: {fileID: 2132465570}
-  buttonTextRight: {fileID: 1968392012}
+  buttonText1: {fileID: 0}
+  buttonText2: {fileID: 0}
+  buttonText3: {fileID: 0}
+  buttonText4: {fileID: 0}
   incorrectPic: {fileID: 830408482}
-  buttonLeft: {fileID: 1294642549}
-  buttonRight: {fileID: 1052151527}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
+  button3: {fileID: 0}
+  button4: {fileID: 0}
 --- !u!65 &1695818964
 BoxCollider:
   m_ObjectHideFlags: 0
