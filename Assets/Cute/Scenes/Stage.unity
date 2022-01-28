@@ -6594,7 +6594,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6426207016811788658, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6618,7 +6618,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.6
+  m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7095,7 +7095,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6426207016811788658, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7119,7 +7119,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.95
+  m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11158,7 +11158,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1639021178}
         m_TargetAssemblyTypeName: Game5Manager, Assembly-CSharp
-        m_MethodName: OnClickButton3
+        m_MethodName: OnClickButton4
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22953,7 +22953,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6426207016811788658, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22977,7 +22977,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.4
+  m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -23517,7 +23517,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 892143626}
-  m_LocalRotation: {x: 0.47185794, y: -0.000000021454222, z: 0.0000000114819505, w: 0.88167465}
+  m_LocalRotation: {x: 0.47185794, y: 0.000000021454227, z: -0.000000011481954, w: 0.88167465}
   m_LocalPosition: {x: 0, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -25164,7 +25164,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6426207016811788658, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25188,7 +25188,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.8
+  m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -32419,7 +32419,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311227558}
-  m_LocalRotation: {x: 0.47185794, y: -0.000000021454222, z: 0.0000000114819505, w: 0.88167465}
+  m_LocalRotation: {x: 0.47185794, y: 0.000000021454227, z: -0.000000011481954, w: 0.88167465}
   m_LocalPosition: {x: -8.761087, y: 15.883838, z: -29.180428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -40978,7 +40978,8 @@ MonoBehaviour:
   winCanvas: {fileID: 1534397490}
   currentQuestion: 0
   question:
-  - question: "y = 3x + 4 \u0E16\u0E49\u0E32 x = 2 \u0E41\u0E25\u0E49\u0E27 y = ?"
+  - question: "   y = 3x + 4            \u0E16\u0E49\u0E32 x = 2 \u0E41\u0E25\u0E49\u0E27
+      y = ?"
     answer1: 13
     answer1Correct: 0
     answer2: 9
@@ -40987,8 +40988,8 @@ MonoBehaviour:
     answer3Correct: 0
     answer4: 10
     answer4Correct: 1
-  - question: "y = 5x + 2  \u0E16\u0E49\u0E32 x = 1 \u0E41\u0E25\u0E49\u0E27 y =
-      ?"
+  - question: "   y = 5x + 2            \u0E16\u0E49\u0E32 x = 1 \u0E41\u0E25\u0E49\u0E27
+      y = ?"
     answer1: 3
     answer1Correct: 0
     answer2: 7
@@ -41041,8 +41042,8 @@ MonoBehaviour:
   textDisplay: {fileID: 2068718525}
   buttonText1: {fileID: 876722745}
   buttonText2: {fileID: 266504274}
-  buttonText3: {fileID: 237129905}
-  buttonText4: {fileID: 972309955}
+  buttonText3: {fileID: 972309955}
+  buttonText4: {fileID: 237129905}
   incorrectPic: {fileID: 164483397}
   button1: {fileID: 1126072228}
   button2: {fileID: 863961028}
@@ -48170,7 +48171,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1639021178}
         m_TargetAssemblyTypeName: Game5Manager, Assembly-CSharp
-        m_MethodName: OnClickButton4
+        m_MethodName: OnClickButton3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -51393,7 +51394,7 @@ MonoBehaviour:
     -----------'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6426207016811788658, guid: 0e80d3c91599a954eb5610b86ced9b3a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -51417,8 +51418,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.72
-  m_fontSizeBase: 0.72
+  m_fontSize: 0.65
+  m_fontSizeBase: 0.65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -51429,7 +51430,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -51453,10 +51454,10 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -0.2614889, z: 1.4805169, w: 5.980942}
+  m_margin: {x: 1.2725296, y: -0.2614889, z: 2.768721, w: 5.980942}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2068718526
