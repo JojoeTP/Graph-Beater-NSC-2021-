@@ -175,7 +175,7 @@ public class Game4Manager : MonoBehaviour
         }
 
         if(y > 0){
-            _y = $"+{y}x";
+            _y = $"{y}y";
         }else if(y < 0){
             _y = $"{y}y";
         }else if(y == 0){
@@ -190,7 +190,7 @@ public class Game4Manager : MonoBehaviour
             _a = null;
         }
 
-        question = $"{_x}{_y}{_a} = 0";
+        question = $"{_y} = {_x}{_a}";
     }
 
     float CalculateX(float _X){

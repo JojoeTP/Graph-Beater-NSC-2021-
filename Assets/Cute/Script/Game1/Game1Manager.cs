@@ -11,7 +11,7 @@ public class Game1Manager : MonoBehaviour
     public Transform outSidePos;
     public DoorScript doorGame1;
     public List<Target> Targets = new List<Target>();
-    public List<int> question = new List<int>();
+    public List<int> questions = new List<int>();
     public List<int> currentQuestion = new List<int>();
     PlayerController player;
 
@@ -31,6 +31,8 @@ public class Game1Manager : MonoBehaviour
     public int x = 0;
     public int y = 0;
     public int a = 0;
+    public string question;
+    public TextMeshProUGUI questionText;
 
     // [Header("Time")]
     // public float time;
@@ -60,6 +62,8 @@ public class Game1Manager : MonoBehaviour
     void FixedUpdate()
     {
         UpdateBar();
+        ConvertQuestionToString();
+        UpdateQuestionText();
         // TimeCount();
     }
 
@@ -176,7 +180,7 @@ public class Game1Manager : MonoBehaviour
             currentQuestion.RemoveRange(0,currentQuestion.Count);
         }
 
-        foreach(int n in question){
+        foreach(int n in questions){
             currentQuestion.Add(n);
         }
 
@@ -213,5 +217,39 @@ public class Game1Manager : MonoBehaviour
             player.ChangeCamera(1);
             StartGame();
         }
+    }
+
+    void ConvertQuestionToString(){
+        string _x = "",_y = "",_a = "";
+
+        if(x > 0){
+            _x = $"{x}x";
+        }else if(x < 0){
+            _x = $"{x}x";
+        }else if(x == 0){
+            _x = null;
+        }
+
+        if(y > 0){
+            _y = $"{y}y";
+        }else if(y < 0){
+            _y = $"{y}y";
+        }else if(y == 0){
+            _y = null;
+        }
+
+        if(a > 0){
+            _a = $"+{a}";
+        }else if(a < 0){
+            _a = $"{a}";
+        }else if(a == 0){
+            _a = null;
+        }
+
+        question = $"{_y} = {_x}{_a}";
+    }
+
+    void UpdateQuestionText(){
+        questionText.text = question;
     }
 }
