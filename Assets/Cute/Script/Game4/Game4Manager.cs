@@ -79,35 +79,39 @@ public class Game4Manager : MonoBehaviour
         a = Random.Range(-10,10);
         int boolean = Random.Range(0,2);
         if(boolean == 0){
-            moreThan = false;
-            Morethan.gameObject.SetActive(false); //Jojoe
+            Morethan.text = "<"; //Jojoe
         }else{
-            moreThan = true;
-            Morethan.gameObject.SetActive(true); //Jojoe
+            Morethan.text = ">"; //Jojoe
         }
 
         //Convert question to string and start chack position player
         ConvertQuestionToString(); //convert every time generate new question
         Question.text = question; //Jojoe
         
+        StopCoroutine("CountdownText");
         StartCoroutine("CheckPlayerPosition");
         StartCoroutine("CountdownText"); //Jojoe
     }
 
     IEnumerator CountdownText(){ //Jojoe
         float count = timeCount;
+        float countBar = count/timeCount;
         
-        while(count>0){
-            yield return new WaitForSeconds(1f);
-            count--;
-            float countBar = count/timeCount;
+        while(countBar > 0){
+            // yield return new WaitForSeconds(1f);
+            // count--;
+            yield return new WaitForSeconds(0.1f);
+            // count -= 0.1f;
+            // float countBar = count/timeCount;
+            countBar -= 0.01f;
+            Debug.Log(countBar);
             CountdownImage.fillAmount = countBar;
         }
     }
     
     //Check player Position
     IEnumerator CheckPlayerPosition(){
-            yield return new WaitForSeconds(timeCount);
+            yield return new WaitForSeconds(timeCount + 0.55f);
             float ans = 0;
             ans = (x * player.transform.localPosition.x) + (y * player.transform.localPosition.z) + a;
             
