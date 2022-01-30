@@ -79,9 +79,9 @@ public class Game4Manager : MonoBehaviour
         a = Random.Range(-10,10);
         int boolean = Random.Range(0,2);
         if(boolean == 0){
-            Morethan.text = "<"; //Jojoe
+            moreThan = false;
         }else{
-            Morethan.text = ">"; //Jojoe
+            moreThan = true;
         }
 
         //Convert question to string and start chack position player
@@ -194,7 +194,12 @@ public class Game4Manager : MonoBehaviour
             _a = null;
         }
 
-        question = $"{_y} = {_x}{_a}";
+        // question = $"{_y} = {_x}{_a}";
+        if(moreThan){
+            question = $"{_y} > {_x}{_a}";
+        }else{
+            question = $"{_y} < {_x}{_a}";
+        }
     }
 
     float CalculateX(float _X){
