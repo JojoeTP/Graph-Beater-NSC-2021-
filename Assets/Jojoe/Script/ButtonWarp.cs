@@ -32,6 +32,7 @@ public class ButtonWarp : MonoBehaviour
                 if(correctAnswer == true){
                     correct_MoveToNextLevel();
                     game3Manager.level++;
+                    game3Manager.SwitchCam();
                 }
                 else{
                     inCorrect_MoveToCurrentLevel();

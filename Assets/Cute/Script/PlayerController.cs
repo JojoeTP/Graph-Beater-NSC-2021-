@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
             break;
             case GameStage.GAME3 :
             Game3();
-            ChangeCamera(3);
+            // ChangeCamera(3);
             break;
             case GameStage.GAME4 :
             Game4();
@@ -142,6 +142,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         diraction = new Vector3(horizontal,0,vertical);
+        diraction = Vector3.ClampMagnitude(diraction,1);
 
         if(diraction.magnitude >= 0.1f){
             transform.rotation = Quaternion.LookRotation(diraction);
@@ -157,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
         if(diraction.magnitude >= 0.1f){
             transform.rotation = Quaternion.Euler(Vector3.zero);
-            transform.position += diraction * moveSpeed * Time.deltaTime;
+            transform.position += diraction * (moveSpeed * .5f) * Time.deltaTime;
             camFollow.position = transform.position;
         }
     }

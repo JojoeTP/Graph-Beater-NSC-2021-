@@ -16,6 +16,7 @@ public class Game3Manager : MonoBehaviour
     [Header("Camera")]
     public CinemachineVirtualCamera game3Cam;
     public List<Transform> levelCam = new List<Transform>();
+    public List<GameObject> levelCams = new List<GameObject>();
     public int level = 1;
     ButtonWarp buttonWarp;
 
@@ -27,7 +28,7 @@ public class Game3Manager : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        SwitchCam();
+        // SwitchCam();
     }
 
     public void EndGame(){
@@ -50,14 +51,21 @@ public class Game3Manager : MonoBehaviour
 
     public void StartGame(){
         tutorialUI.SetActive(true);
-
+        SwitchCam();
+        
         //use GenerateQuestion() in button in tutorialUI
     }
 
-    void SwitchCam(){
+    public void SwitchCam(){
         if(isGameStarted){
-            game3Cam.LookAt = levelCam[level-1];
-            game3Cam.Follow = levelCam[level-1];
+            // game3Cam.LookAt = levelCam[level-1];
+            // game3Cam.Follow = levelCam[level-1];
+            foreach(GameObject n in levelCams){
+                n.SetActive(false);
+            }
+
+            levelCams[level-1].SetActive(true);
+            
         }
         
     }

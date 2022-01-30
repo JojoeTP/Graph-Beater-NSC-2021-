@@ -41,13 +41,15 @@ public class Game1Manager : MonoBehaviour
    
     [Header("Progress")]
     public int numToAnswer;
-    public int correctAnswer = 0;
+    public int remaining = 0;
     public Image progressBar;
+    public TextMeshProUGUI remainingText;
 
     [Header("Incorrect")]
     public int maxInCorrectAnswer;
     public int inCorrectAnswer = 0;
     public Image inCorrectBar;
+    public TextMeshProUGUI inCorrectText;
     // Target[] _targets;
 
     // Start is called before the first frame update
@@ -87,7 +89,7 @@ public class Game1Manager : MonoBehaviour
         if(answer == _y){
             //correct
             Debug.Log("Correct");
-            correctAnswer += 1;
+            remaining -= 1;
             // HideCanvas();
         }else{
             //not correct
@@ -96,12 +98,12 @@ public class Game1Manager : MonoBehaviour
             // HideCanvas();
         }
 
-        ProgressBar();
-        InCorrectBar();
+        Progress();
+        InCorrect();
     }
 
     public float FindAnswer(float question){
-        float _y = question + 2;
+        float _y = ((question * x) + a) / y;
         return _y;
     }
 
@@ -143,12 +145,14 @@ public class Game1Manager : MonoBehaviour
     // }
 
     void UpdateBar(){
-        progressBar.fillAmount = (float)correctAnswer / (float)numToAnswer;
-        inCorrectBar.fillAmount = (float)inCorrectAnswer / (float)maxInCorrectAnswer;
+        
+
+        remainingText.text = $"Remaining : {remaining} / {numToAnswer}";
+        inCorrectText.text = $"Wrong : {inCorrectAnswer} / {maxInCorrectAnswer}";
     }
 
-    void ProgressBar(){
-        if(correctAnswer == numToAnswer){
+    void Progress(){
+        if(remaining == 0){
             Debug.Log("Win");
             win = true;
             //show Text win
@@ -158,7 +162,7 @@ public class Game1Manager : MonoBehaviour
         }
     }
 
-    void InCorrectBar(){
+    void InCorrect(){
         if(inCorrectAnswer == maxInCorrectAnswer){
             Debug.Log("GameOver");
             isGameStarted = false;
@@ -174,7 +178,7 @@ public class Game1Manager : MonoBehaviour
     public void StartGame(){
         // timer = time;
         inCorrectAnswer = 0;
-        correctAnswer = 0;
+        remaining = numToAnswer;
 
         if(currentQuestion != null){
             currentQuestion.RemoveRange(0,currentQuestion.Count);

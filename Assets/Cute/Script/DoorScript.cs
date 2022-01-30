@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DoorScript : MonoBehaviour
 {
+    public TMP_Text guideText;
+
     Animator doorAnimator;
 
     private void Start() {
@@ -18,8 +21,14 @@ public class DoorScript : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
+        guideText.gameObject.SetActive(false);
+
         if(other.gameObject.CompareTag("Player")){
             doorAnimator.SetBool("isOpen",false);
         }
+    }
+
+    void OnTriggerEnter(Collider other){
+        guideText.gameObject.SetActive(true);
     }
 }
