@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
         if(diraction.magnitude >= 0.1f){
             transform.rotation = Quaternion.Euler(Vector3.zero);
-            transform.position += diraction * moveSpeed * Time.deltaTime;
+            transform.position += diraction * (moveSpeed * .5f) * Time.deltaTime;
             camFollow.position = transform.position;
             if(!walkSound.isPlaying){
                 walkSound.Play();
