@@ -26,33 +26,21 @@ public class Target : MonoBehaviour
             transform.rotation = Quaternion.Lerp(Quaternion.Euler(-90f,180,0f),Quaternion.Euler(0f,180,0f),lerpValue);
     }
 
-    //show canvas
-    // void AnswerQuestion(){
-    //     game1Manager.ShowCanvasAnswer(question);
-    // }
     public void ShowTarget(){
         StartCoroutine(AssignToTarget());
     }
 
     IEnumerator AssignToTarget(){
-        
         yield return new WaitForSeconds(2f);
         game1Manager.AssignQuestionToTarget(this);
         if(question > 0){
             this.GetComponent<Collider>().enabled = true;
             StartCoroutine(IEShowTarget());
         }
-        
-
     }
 
     public void HideTarget(){
-        //Change how to answer
-        //AnswerQuestion(); 
-
-        // if(question >= 0){
         StartCoroutine(IEHideTarget());
-        // }
     }
     
     public void SetQuestion(int _question){

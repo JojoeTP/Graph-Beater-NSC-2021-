@@ -16,7 +16,6 @@ public class Game1Manager : MonoBehaviour
     PlayerController player;
 
 
-    public GameObject game1AnswerUI;
     public GameObject game1Canvas;
     public TextMeshProUGUI XText;
     // public TMP_InputField inputField;
@@ -41,13 +40,13 @@ public class Game1Manager : MonoBehaviour
    
     [Header("Progress")]
     public int numToAnswer;
-    public int correctAnswer = 0;
-    public Image progressBar;
+    public int remaining = 0;
+    public TextMeshProUGUI remainingText;
 
     [Header("Incorrect")]
     public int maxInCorrectAnswer;
     public int inCorrectAnswer = 0;
-    public Image inCorrectBar;
+    public TextMeshProUGUI inCorrectText;
     // Target[] _targets;
 
     // Start is called before the first frame update
@@ -86,69 +85,32 @@ public class Game1Manager : MonoBehaviour
 
         if(answer == _y){
             //correct
-            Debug.Log("Correct");
-            correctAnswer += 1;
+            // Debug.Log("Correct");
+            remaining -= 1;
             // HideCanvas();
         }else{
             //not correct
-            Debug.Log("InCorrect");
+            // Debug.Log("InCorrect");
             inCorrectAnswer += 1;
             // HideCanvas();
         }
 
-        ProgressBar();
-        InCorrectBar();
+        Progress();
+        InCorrect();
     }
 
     public float FindAnswer(float question){
-        float _y = question + 2;
+        float _y = ((question * x) + a) / y;
         return _y;
     }
 
-    //Don't use it any more!
-    // public void ShowCanvasAnswer(int _x){
-    //     _question = _x;
-    //     XText.text = "X = " + _x;
-    //     inputField.text = "Input Answer";
-    //     game1AnswerUI.SetActive(true);
-    //     player.CurrentStage = GameStage.ANSWERQUES;
-    // }
-
-    //Don't use it any more!
-    // public void HideCanvas(){
-    //     game1AnswerUI.SetActive(false);
-    //     player.CurrentStage = GameStage.GAME1;
-    // }
-
-    //Don't use it any more!
-    // public void SetAnswer(){
-    //     answer = int.Parse(inputField.text);
-    //     // CalculatorQuestion();
-    //     foreach(Target n in Targets){
-    //         if(n.lerpValue < 1){
-    //             n.ShowTarget(); //Move Target to when answer the question finish
-    //         }
-    //     }
-    // }
-
-    //TimeCount
-    // void TimeCount(){
-    //     timer -= 1 * Time.deltaTime;
-
-    //     timeImageBar.fillAmount = timer / time;
-
-    //     if(timer <= 0){
-    //         Debug.Log("GameOver");
-    //     }
-    // }
-
     void UpdateBar(){
-        progressBar.fillAmount = (float)correctAnswer / (float)numToAnswer;
-        inCorrectBar.fillAmount = (float)inCorrectAnswer / (float)maxInCorrectAnswer;
+        remainingText.text = $"Remaining : {remaining} / {numToAnswer}";
+        inCorrectText.text = $"Wrong : {inCorrectAnswer} / {maxInCorrectAnswer}";
     }
 
-    void ProgressBar(){
-        if(correctAnswer == numToAnswer){
+    void Progress(){
+        if(remaining == 0){
             Debug.Log("Win");
             win = true;
             //show Text win
@@ -158,23 +120,18 @@ public class Game1Manager : MonoBehaviour
         }
     }
 
-    void InCorrectBar(){
+    void InCorrect(){
         if(inCorrectAnswer == maxInCorrectAnswer){
             Debug.Log("GameOver");
             isGameStarted = false;
             loseCanvas.SetActive(true);
-            // EndGame();
-            // FindObjectOfType<InstantiateGame1Manager>().GetComponent<InstantiateGame1Manager>().OnReset();
-
-            // Destroy(this.gameObject);
-            
         }
     }
 
     public void StartGame(){
         // timer = time;
         inCorrectAnswer = 0;
-        correctAnswer = 0;
+        remaining = numToAnswer;
 
         if(currentQuestion != null){
             currentQuestion.RemoveRange(0,currentQuestion.Count);

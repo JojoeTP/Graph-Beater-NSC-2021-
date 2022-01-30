@@ -39,7 +39,8 @@ public class Game4Manager : MonoBehaviour
     public Image CountdownImage; //Jojoe   
     public TextMeshProUGUI QuestionProgress; //Jojoe
     public TextMeshProUGUI Morethan; //Jojoe
-    public Image Healthbar; //Jojoe    
+    public Image Healthbar; //Jojoe  
+    public TextMeshProUGUI healthText;  
 
     // Start is called before the first frame update
     void Start()
@@ -80,34 +81,38 @@ public class Game4Manager : MonoBehaviour
         int boolean = Random.Range(0,2);
         if(boolean == 0){
             moreThan = false;
-            Morethan.gameObject.SetActive(false); //Jojoe
         }else{
             moreThan = true;
-            Morethan.gameObject.SetActive(true); //Jojoe
         }
 
         //Convert question to string and start chack position player
         ConvertQuestionToString(); //convert every time generate new question
         Question.text = question; //Jojoe
         
+        StopCoroutine("CountdownText");
         StartCoroutine("CheckPlayerPosition");
         StartCoroutine("CountdownText"); //Jojoe
     }
 
     IEnumerator CountdownText(){ //Jojoe
         float count = timeCount;
+        float countBar = count/timeCount;
         
-        while(count>0){
-            yield return new WaitForSeconds(1f);
-            count--;
-            float countBar = count/timeCount;
+        while(countBar > 0){
+            // yield return new WaitForSeconds(1f);
+            // count--;
+            yield return new WaitForSeconds(0.1f);
+            // count -= 0.1f;
+            // float countBar = count/timeCount;
+            countBar -= 0.01f;
+            Debug.Log(countBar);
             CountdownImage.fillAmount = countBar;
         }
     }
     
     //Check player Position
     IEnumerator CheckPlayerPosition(){
-            yield return new WaitForSeconds(timeCount);
+            yield return new WaitForSeconds(timeCount + 0.55f);
             float ans = 0;
             ans = (x * player.transform.localPosition.x) + (y * player.transform.localPosition.z) + a;
             
@@ -140,6 +145,7 @@ public class Game4Manager : MonoBehaviour
             }
             float playerHealthbar = (float)playerHP/(float)maxPlayerHP; //Jojoe
             Healthbar.fillAmount = playerHealthbar; //Jojoe
+            healthText.text = $"HP : {playerHP} / {maxPlayerHP}";
 
             //Run next Question
             GenerateQuestion();
@@ -190,7 +196,11 @@ public class Game4Manager : MonoBehaviour
             _a = null;
         }
 
-        question = $"{_y} = {_x}{_a}";
+        if(moreThan){
+            question = $"{_y} > {_x}{_a}";
+        }else{
+            question = $"{_y} < {_x}{_a}";
+        }
     }
 
     float CalculateX(float _X){

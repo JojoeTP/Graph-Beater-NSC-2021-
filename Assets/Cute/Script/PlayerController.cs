@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour
     public GameObject game1Cam;
     public GameObject aimCam;
     public GameObject aimReticle;
+    [Header("Animator")]
+    public Animator animator;
+    [Header("Sound")]
+    public AudioSource walkSound;
+    public AudioSource shootSound;
+
 
     private void Awake() {
         CurrentStage = GameStage.LOBBY;
@@ -34,7 +40,7 @@ public class PlayerController : MonoBehaviour
             isAim = true;
         }else if(Input.GetMouseButtonUp(1)){
             isAim = false;
-        }    
+        }
     }
 
     // Update is called once per frame
@@ -54,7 +60,7 @@ public class PlayerController : MonoBehaviour
             break;
             case GameStage.GAME3 :
             Game3();
-            ChangeCamera(3);
+            // ChangeCamera(3);
             break;
             case GameStage.GAME4 :
             Game4();
@@ -91,13 +97,14 @@ public class PlayerController : MonoBehaviour
         if(isAim && !aimCam.activeInHierarchy){
             game1Cam.SetActive(false);
             aimCam.SetActive(true);
-
+            animator.SetBool("aim", true);
             //Allow time for the camera to blend before enabling the UI
             StartCoroutine(ShowReticle());
         }else if(!isAim && !game1Cam.activeInHierarchy){
             game1Cam.SetActive(true);
             aimCam.SetActive(false);
             aimReticle.SetActive(false);
+            animator.SetBool("aim", false);
         }
         
     }
@@ -142,23 +149,41 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         diraction = new Vector3(horizontal,0,vertical);
+        diraction = Vector3.ClampMagnitude(diraction,1);
 
         if(diraction.magnitude >= 0.1f){
             transform.rotation = Quaternion.LookRotation(diraction);
             // transform.Translate(diraction * moveSpeed * Time.deltaTime);
             transform.position += diraction * moveSpeed * Time.deltaTime;
             camFollow.position = transform.position;
+            animator.SetBool("aim", false);
+            animator.SetBool("run", true);
+
+            if(!walkSound.isPlaying){
+                walkSound.Play();
+            }
+        }
+        else
+        {
+            animator.SetBool("run", false);
+            walkSound.Stop();
         }
     }
     void Move2(){
+        animator.SetBool("aim", true);
         float horizontal = Input.GetAxisRaw("Horizontal");
-
+        animator.SetFloat("strafe", horizontal);
         diraction = new Vector3(horizontal,0,0);
 
         if(diraction.magnitude >= 0.1f){
             transform.rotation = Quaternion.Euler(Vector3.zero);
             transform.position += diraction * moveSpeed * Time.deltaTime;
             camFollow.position = transform.position;
+            if(!walkSound.isPlaying){
+                walkSound.Play();
+            }
+        }else{
+            walkSound.Stop();
         }
     }
 
@@ -167,7 +192,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             GameObject bullet = Instantiate(bulletPrefab,gunBarrel.position,Quaternion.Euler(Vector3.zero));
             bullet.GetComponent<BulletMove>().target = target;
-            Debug.Log("SHOOT!!");
+            shootSound.Play();
         }
     }
 
