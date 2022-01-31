@@ -26,6 +26,7 @@ public class Game5Manager : MonoBehaviour
     PlayerController player;
     public GameObject tutorialUI;
     public GameObject winCanvas;
+    public Transform startPos;
     [Header("Question")]
     public int currentQuestion = 0;
 
@@ -55,10 +56,6 @@ public class Game5Manager : MonoBehaviour
         player = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
     }
 
-    private void FixedUpdate() {
-
-    }
-
     public void EndGame(){
         //button
         win = true;
@@ -78,6 +75,7 @@ public class Game5Manager : MonoBehaviour
     }
 
     public void StartGame(){
+        player.transform.position = startPos.position;
         tutorialUI.SetActive(true);
         gameCanvas.SetActive(true);
     }
